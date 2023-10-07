@@ -1,10 +1,11 @@
 <h1 align="center"> Python Scripts </h1>
 
-### Coletanea com diversos de Scripst python criados por mim ao longo do tempo, com propositos distintos
+### Coletânea com diversos Scripst python criados por mim, com propositos distintos
 
 <h2 align="center"> DjangoForge </h2>
 
 ### Script para automatizar parte da criação de projetos com o Django e React.
+![DjangoForge](https://github.com/plotzZzky/PythonScripts/assets/12895974/e9639321-c562-4b70-80ac-9990e0e3e34d)
 
 ## Importante:
 - No momento so funciona no linux;
@@ -39,9 +40,10 @@
 - [x] Salva os repos em uma pasta com o nome do usuario ("Home/GitGet/User/repo/");
 - [x] Feito com python 3.11;
 
+
 <h2 align="center"> PasswordTest </h2>
 
-### Script python para testar a segurança e reincidência de senhas usando um algoritimo randomico.
+### Script python para testar a segurança e reincidência de senhas usando um algoritimo randômico.
 
 ![pwd](https://user-images.githubusercontent.com/12895974/216612141-c7242bb9-743e-4c51-813a-c05686602710.png)
 
