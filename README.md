@@ -1,6 +1,6 @@
 <h1 align="center"> Python Scripts </h1>
 
-### Coletânea com diversos Scripst python criados por mim, com propositos distintos
+### Coletânea com diversos Scripts Python criados por mim, com propósitos distintos
 
 <h2 align="center"> DjangoForge </h2>
 
@@ -28,7 +28,7 @@
 
 <h2 align="center"> GitGet </h2>
   
-### Script para baixar repositorios de um user do github.
+### Script para baixar repositorios de um user do GitHub.
 
 ![gitget](https://github.com/plotzZzky/GitGet/assets/12895974/5f36d82d-b79a-4326-b0db-f2465883452b)
 
@@ -43,7 +43,7 @@
 
 <h2 align="center"> PasswordTest </h2>
 
-### Script python para testar a segurança e reincidência de senhas usando um algoritimo randômico.
+### Script Python para testar a segurança e reincidência de senhas usando um algoritimo randômico.
 
 ![pwd](https://user-images.githubusercontent.com/12895974/216612141-c7242bb9-743e-4c51-813a-c05686602710.png)
 
@@ -56,7 +56,7 @@
 
 <h2 align="center"> Test do teorema do macaco infinito </h2>
 
-### Script python para "testar" o teorema do macaco infinito. Este script foi feito apenas para fins de interterimento sem nehhum foco científico.
+### Script Python para "testar" o teorema do macaco infinito. Este script foi feito apenas para fins de interterimento sem nehhum foco científico.
 
 ### Caracteristicas:
 - [x] Criação de plavaras de forma randomica;
