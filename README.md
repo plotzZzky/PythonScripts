@@ -30,15 +30,20 @@
   
 ### Script para baixar repositorios de um user do GitHub.
 
-![gitget](https://github.com/plotzZzky/GitGet/assets/12895974/5f36d82d-b79a-4326-b0db-f2465883452b)
+![gitget](https://github.com/plotzZzky/PythonScripts/assets/12895974/f9ece8f3-3275-4d3f-b08e-8fb620fdbb46)
 
 ### Caracteristicas:
 
 - [x] Busca por username;
-- [x] Permite baixar toos os repos ou selecionar um especifico;
+- [x] Permite baixar todos os repos ou selecionar um especifico;
 - [x] Cria uma pasta na home do usuario, chamada GitGet, para salvar os projetos;
 - [x] Salva os repos em uma pasta com o nome do usuario ("Home/GitGet/User/repo/");
 - [x] Feito com python 3.11;
+
+<h2 align="center"> IpInspector </h2>
+### Script para obter informações da localização de um servidor por IP ou Dominio.
+
+![IpInspector](https://github.com/plotzZzky/PythonScripts/assets/12895974/77779a7b-6f39-4e60-9049-9193430ff3a8)
 
 
 <h2 align="center"> PasswordTest </h2>
@@ -52,14 +57,4 @@
 - [x] Executa um "BruteForce attack" para tentar quebra-la exibindo os resultados;
 - [x] Permite que você passe uma senha e o script tenata quebra-la;
 - [x] Testa a reincidencia de uma senha usando um algoritimo de geração randomica;
-
-
-<h2 align="center"> Test do teorema do macaco infinito </h2>
-
-### Script Python para "testar" o teorema do macaco infinito. Este script foi feito apenas para fins de interterimento sem nehhum foco científico.
-
-### Caracteristicas:
-- [x] Criação de plavaras de forma randomica;
-- [x] Função para calcular o tempo e o numero de tentativas;
-- [x] Exibe os resultados no final;
 
