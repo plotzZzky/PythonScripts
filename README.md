@@ -41,6 +41,7 @@
 - [x] Feito com python 3.11;
 
 <h2 align="center"> IpInspector </h2>
+
 ### Script para obter informações da localização de um servidor por IP ou Dominio.
 
 ![IpInspector](https://github.com/plotzZzky/PythonScripts/assets/12895974/77779a7b-6f39-4e60-9049-9193430ff3a8)
