@@ -6,7 +6,7 @@ import time
 import os
 
 
-# Programa para testar a reincidencia de uma senha, e a segurança através de um brute force atack 
+# Programa para testar a reincidencia de uma senha e a segurança através de um brute force atack 
 class PasswordTest:
     def __init__(self):
         self.chars = None
