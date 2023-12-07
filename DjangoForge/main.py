@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 import art
 
+# Conteudo do arquivo do django system/urls.py
 urls_system = f'''from django.contrib import admin
 from django.urls import path, include
 
@@ -13,6 +14,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
 ]'''
 
+# Conteudo base dos aqruivos urs.py dos apps
 urls_base = '''from django.urls import path
 
 from . import views
@@ -23,7 +25,7 @@ urlpatterns = [
 ]
 '''
 
-
+# Script apara automatizar o processo de criação de projetos com Django
 class DjangoForge:
     def __init__(self):
         # Edit this
@@ -47,23 +49,27 @@ class DjangoForge:
         self.react_front = ""
         self.rest = ""
 
+    # Apresentação do script
     def wellcome(self):
         art.tprint(f'{" " * 5} DjangoForge', 'tarty1')
         print(f"{'-' * 36} https://github.com/plotzzzky {'-' * 36}\n")
         print("Este script automatiza parte do processo de criação de projetos com django\n")
         self.get_project_name()
 
+    # Recebe o nome do projeto via input
     def get_project_name(self):
         self.project_name = input('Digite o nome do projeto:\n')
         self.folder = f"{self.BASE_DIC}/{self.project_name}/"
         self.get_requirements()
 
+    # Recebe a lista de requirements do projeto via input e os adiciona na lista base
     def get_requirements(self):
         query = input('Digite os requisitos do seu projeto separados por espaços\n')
         r = query.split()
         self.requirements.extend(r)
         self.get_app_list()
 
+    # Recebe a lista de apps do django via input
     def get_app_list(self):
         query = input('Digite o nome dos apps para adicionar a seu projeto separados por espaços\n'
                       'apps padrao: core e users\n')
@@ -71,6 +77,7 @@ class DjangoForge:
         self.list_apps.extend(apps)
         self.create_project_folder()
 
+    # Cria as pastas do projeto
     def create_project_folder(self):
         self.back_folder = f"{self.folder}back/"
 
@@ -78,6 +85,7 @@ class DjangoForge:
         Path.mkdir(Path(self.back_folder))
         self.create_frontend()
 
+    # Menu para verificar como sera feito o front, e cria o comando para a geração do mesmo
     def create_frontend(self):
         self.react_front = input("Criar o frontend com react(Y/n):\n").upper()
         if self.react_front == "Y":
@@ -86,11 +94,13 @@ class DjangoForge:
                                  f" mkdir front/src/elements/"
         self.check_if_install_djangorestframework()
 
+    # Menu para verificar se o usario quer instalar o DRF
     def check_if_install_djangorestframework(self):
         if self.rest == "Y":
             self.requirements.extend(["django-cors-headers", "djangorestframework"])
         self.create_requirements()
 
+    # Cria o arquivo requirements.txt a adiciona os items da variavel requiremets_text
     def create_requirements(self):
         r = [f"{item}\n" for item in self.requirements]
         self.requirements_text = "".join(r)
@@ -100,6 +110,7 @@ class DjangoForge:
         self.venv_commands = f'python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt'
         self.create_venv()
 
+    # Cria o anbiente virtual do python e instala as dependencia do back do projeto
     def create_venv(self):
         create_apps = self.create_apps_command()
         create_project = f'django-admin startproject system .; touch .gitignore; cd system/;' \
@@ -108,6 +119,7 @@ class DjangoForge:
                         f" {self.venv_commands}; {create_project}; {create_apps}"])
         self.create_list_apps_to_project()
 
+    # Cria a lista de apps do projeto
     def create_list_apps_to_project(self):
         path = f"{self.back_folder}system/settings.py"
         list_apps = [f"    '{item}',\n" for item in self.list_apps]
@@ -117,6 +129,7 @@ class DjangoForge:
         new_line = "".join(list_apps)
         self.insert_apps_in_project_settings(path, new_line)
 
+     # Adiciona a lista de apps ao settings do django
     def insert_apps_in_project_settings(self, path, new_line):
         with open(path, "r") as in_file:
             buf = in_file.readlines()
@@ -127,10 +140,12 @@ class DjangoForge:
                     line = line + new_line
                 out_file.write(line)
 
+    # Gera o comando para criar os apps do django (django-admin startapp app_name)
     def create_apps_command(self):
         apps = [self.create_commands_for_app(item) for item in self.list_apps]
         return "".join(apps)
 
+    # Cria o app do django e adiciona o arquivo com as urls de cada app e o conteudo base
     def create_commands_for_app(self, item):
         if item == 'users':
             text = f'cd {self.back_folder}; django-admin startapp {item}; cd {item}/; echo "{urls_base}" > urls.py;'
