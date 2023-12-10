@@ -2,7 +2,7 @@ from DjangoForge.main import djangoForge
 from GitGet.main import gitget
 from IPInspector.main import ip
 from PasswordTest.main import pwd
-from Test_macaco_infinito.main import monkey
+from Tpass.main import tpass
 import art
 
 
@@ -12,7 +12,8 @@ class Menu:
         self.apps = ["DjangoForge",
                      "GitGet",
                      "IPInspector",
-                     "PasswordTest"]
+                     "PasswordTest",
+                     "Tpass"]
         self.print_space = f"{'-_' * 20}"
 
     # Tela de apresentação
@@ -45,15 +46,17 @@ class Menu:
             self.menu()
 
     # Executa o script selecionado pelo usuario
-    def open_app(self, number):
-        if number == 1:
+    def open_app(self, option):
+        if option == 1:
             djangoForge.wellcome()
-        elif number == 2:
+        elif option == 2:
             gitget.welcome()
-        elif number == 3:
+        elif option == 3:
             ip.wellcome()
-        elif number == 4:
+        elif option == 4:
             pwd.wellcome()
+        elif option == 5:
+            tpass.wellcome()
         else:
             self.menu()
         self.wellcome()

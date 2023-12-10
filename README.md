@@ -59,3 +59,13 @@
 - [x] Permite que você passe uma senha e o script tenata quebra-la;
 - [x] Testa a reincidencia de uma senha usando um algoritimo de geração randomica;
 
+
+<h2 align="center"> TerminalPass </h2>
+
+### Aplicativo de terminal para gerenciar senhas usando pykeepass, feito em python
+
+### Caracteristicas:
+- [x] Cria, ou abre um banco de senhas (.kdbx);
+- [x] Permite criar ou deletar entradas no banco de senhas;
+- [x] Permite passar suas senhas ou criar uma randomica;
+- [ ] Mais em breve;
