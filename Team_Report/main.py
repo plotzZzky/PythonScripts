@@ -15,8 +15,6 @@ class GenerateData:
 
         self.path = Path(__file__).parent.resolve()
 
-        self.open_file()
-
     def open_file(self):
         try:
             f = open(self.path / 'relatorio.csv')
@@ -53,7 +51,7 @@ class GenerateData:
 
 class GraphPie:
     # Classe que gera os graficos pizza medindo a performance da equipe
-    def __init__(self):
+    def __init__(self, data):
         strdate = str(date.today()).split('-')
         today = f"{strdate[2]}/{strdate[1]}/{strdate[0]}"
         state = 'Coletadas'
@@ -62,9 +60,7 @@ class GraphPie:
         self.META = 65  # Meta da porcentagem de tarefas concluidas na data atual
 
         self.labels = ["Concluidas", "Faltantes"]
-        self.values = generate_data.values  # Valores gerados pela classe GenerateData
-
-        self.create_subplot()
+        self.values = data.values  # Valores gerados pela classe GenerateData
 
     def create_subplot(self):
         # Criação dos subplots (2 linhas, 4 colunas)
@@ -127,6 +123,18 @@ class GraphPie:
         self.fig.show()
 
 
+# Função para iniciar o script pelo menu da raiz do projeto
+class ReportMenu:
+    def __init__(self):
+        self.generate_data = GenerateData()
+        self.pie = GraphPie(self.generate_data)
+
+    def wellcome(self):
+        self.generate_data.open_file()
+        self.pie.create_subplot()
+
+
+report = ReportMenu()
+
 if __name__ == '__main__':
-    generate_data = GenerateData()
-    pie = GraphPie()
+    report.wellcome()

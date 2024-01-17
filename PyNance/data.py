@@ -1,5 +1,3 @@
-import art
-
 
 class GetData:
     # Classe que recebe e calcula o rendimento e as despesas
@@ -9,18 +7,6 @@ class GetData:
         self.sobre_gastos_pessoais = ("Gastos recorentes e importantes para sua vida, mas não essenciais podendo ser "
                                       "reduzidas ou cortados em situações de emergencia")
         self.sobre_economias = "Valores guardados para metas ou emergencias"
-
-    def wellcome(self):
-        art.tprint(f'{" " * 5} Bem vindo!', 'tarty1')
-        print(f"{'=' * 80}")
-        print("Script python para ajudar a gerenciar sua vida fineceira")
-        print("Todos os valores devem ser preenchidos com valores inteiros ignorando os centavos\n")
-        option = input("Digite Y para preencher os valores ou qualquer tecla para testar a ferramenta "
-                       "com valores genericos\n").lower()
-        if option == 'y':
-            self.get_income()
-        else:
-            self.test()
 
     # Modelo generico de inpu para receber os valores
     def get_value(self, placeholder):

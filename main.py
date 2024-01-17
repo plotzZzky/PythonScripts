@@ -3,6 +3,8 @@ from GitGet.main import gitget
 from IPInspector.main import ip
 from PasswordTest.main import pwd
 from Tpass.main import tpass
+from PyNance.main import pynance
+from Team_Report.main import report
 import art
 
 
@@ -10,9 +12,11 @@ import art
 class Menu:
     def __init__(self):
         self.apps = ["DjangoForge",
+                     "PyNance",
                      "GitGet",
                      "IPInspector",
                      "PasswordTest",
+                     "Team Report",
                      "Tpass"]
         self.print_space = f"{'-_' * 20}"
 
@@ -47,19 +51,21 @@ class Menu:
 
     # Executa o script selecionado pelo usuario
     def open_app(self, option):
-        if option == 1:
-            djangoForge.wellcome()
-        elif option == 2:
-            gitget.welcome()
-        elif option == 3:
-            ip.wellcome()
-        elif option == 4:
-            pwd.wellcome()
-        elif option == 5:
-            tpass.wellcome()
-        else:
-            self.menu()
-        self.wellcome()
+        funcs = [
+                djangoForge.wellcome,
+                gitget.welcome,
+                ip.wellcome,
+                pwd.wellcome,
+                pynance.wellcome,
+                report.wellcome,
+                tpass.wellcome,
+                ]
+        try:
+            user_option = option - 1
+            funcs[user_option]()
+        except (KeyError, ValueError):
+            pass
+        menu.menu()
 
 
 menu = Menu()
