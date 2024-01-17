@@ -1,3 +1,7 @@
+*.csv
+*.pyc
+
 venv/
 .idea/
 .git/
+*/__pycache__/*
