@@ -1,29 +1,34 @@
+from rich import print
 import sys
 import socket
 import requests
 
 
-# Programa para buscar informações sobre um ip via terminal
+# Script para buscar informações sobre um ip via terminal
 class IPInspector:
     def __init__(self):
         # ip variables
-        self.ip = ''
-        self.domain = ''
-        self.ip_json = {'ip': '1111', 'city': 'city'}
-        # format variables
-        self.print_space = f'{"-_" * 20}'
+        self.ip = ""
+        self.domain = ""
+        self.ip_json = {"ip": "1111", "city": "city"}
 
-    # Aprsentação do programa
+        self.print_space = f'{"--" * 20}'  # Usado nos titulos
+
+    # Apresentação do script
     def wellcome(self):
-        print(f"{self.print_space} Bem vindo ao IPInspector {self.print_space}\n")
-        print(f"Essa ferramente te ajudara a encomtrar informaçõe de servidores por ip ou dominio.\n")
+        print(
+            f" {self.print_space} [bold blue] Bem vindo ao IPInspector [/bold blue] {self.print_space} "
+        )
+        print(
+            f" {' ' * 20} Esse script busca informações de servidores por ip ou dominio."
+        )
+        print(f" {'-' * 108} ")
         self.menu()
 
     # Menu para verificar a função desejada pelo usario e a executa
     def menu(self):
         print("Selecione uma opção:\n")
-        print("1- Buscar por Ip \n"
-              "2- Buscar por Dominio")
+        print("1- Buscar por Ip \n" "2- Buscar por Dominio")
         response = input()
         if response == "1":
             self.get_ip()
@@ -38,7 +43,7 @@ class IPInspector:
         self.ip = input("\nDigite o ip:\n")
         self.get_info_by_ip()
 
-    # Busca as infos do api na api e chama a função para mostrar os resultados
+    # Busca as infos do ip na api e chama a função para mostrar os resultados
     def get_info_by_ip(self):
         url = f"https://ipapi.co/{self.ip}/json/"
         response = requests.get(url)
@@ -47,8 +52,8 @@ class IPInspector:
 
     # Recebe um dominio via input, obtem o ip desse dominio e chama a função para obter informções do ip
     def get_domain(self):
-        self.ip = input("\nDigite o dominio:\n")
-        self.ip = socket.gethostbyname("www.diolinux.com")
+        self.domain = input("\nDigite o dominio:\n")
+        self.ip = socket.gethostbyname(self.domain)
         self.get_info_by_ip()
 
     # Mostra os resultados ja formatados
@@ -66,11 +71,11 @@ class IPInspector:
         if response == "Y":
             self.show_result()
         else:
-            if __name__ == '__main__':
+            if __name__ == "__main__":
                 sys.exit()
 
 
 ip = IPInspector()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ip.wellcome()

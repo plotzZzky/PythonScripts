@@ -1,21 +1,22 @@
+from pathlib import Path
 import pathlib
 import requests
 import os
 import sys
 import art
-from pathlib import Path
 
-# Programa para baixar respositorios de um usario do github
+
 class GitGet:
+    # Script python para baixar repositorios de um usuario de uma conta do GitHub
     def __init__(self):
-        self.user = ""
+        self.user = "Username"
         self.repos = []
         self.path = None
-        self.url = ""
+        self.url = "url_do_github_do_user"
 
-    # Tela de apresentação do programa
+    # Tela de apresentação do script
     def welcome(self):
-        art.tprint(f'{" " * 20} GitGet', 'tarty')
+        art.tprint(f'{" " * 20} GitGet', "tarty")
         print(f"{'-' * 30} https://github.com/plotzzzky {'-' * 30}\n")
         self.find_user()
 
@@ -24,35 +25,33 @@ class GitGet:
         self.user = input("Digite o nome do usuario:\n")
         self.url = f"https://api.github.com/users/{self.user}/repos"
         self.get_repos()
-        
+
     # Recebe a lista com todos os respositorios do usuario procurado
     def get_repos(self):
         response = requests.get(self.url)
         self.repos = response.json()
 
         if response.status_code == 200:
-            if self.repos:
-                self.show_repos()
-            else:
-                print("Nenhum repositorio encontrado!")
-                self.exit_menu()
+            self.show_repos()
         else:
             print("Usuario não encontrado!")
             self.exit_menu()
 
     # Mostra todos os respos encontrados do usuario já formatados
     def show_repos(self):
-        print("Repositorios encontrados:")
+        print("\nRepositorios encontrados:")
         n = 0
         for item in self.repos:
             n += 1
             print(f"{n}- {item['name']}")
         self.get_repos_option()
 
-    # Menu para verificar quais os repos baixar, verifica se deseja salvar todos, alguns selecionados ou nehum
+    # Menu para verificar quais os repos baixar, verifica se deseja salvar todos, alguns selecionadosou fechar o programa
     def get_repos_option(self):
-        option = input("Digite 'Enter' para baixar todos, "
-                       "'N' para cancelar ou o numero dos repos separados por espaço:\n")
+        option = input(
+            "\nDigite 'Enter' para baixar todos, "
+            "'N' para cancelar ou o numero dos repos separados por espaço:\n"
+        )
         option_list = option.split(" ")
         if option.lower() == "n":
             self.exit_menu()
@@ -69,13 +68,13 @@ class GitGet:
             for item in option:
                 x = int(item) - 1
                 url = f"{self.repos[x]['clone_url']}"
-                name = self.repos[x]['name']
+                name = self.repos[x]["name"]
                 self.download_repo(url, name)
             self.exit_menu()
         except TypeError:
             pass
 
-    # Baixa o repositorio selecionado
+    # Baixa o repositorio selecionado através do git cli
     def download_repo(self, url, name):
         os.system(f"cd {self.path}; git clone {url}")
         print(f"Download {name} concluido!\n")
@@ -85,11 +84,11 @@ class GitGet:
         self.create_folder()
         for item in self.repos:
             url = f"{item['clone_url']}"
-            name = item['name']
+            name = item["name"]
             self.download_repo(url, name)
         self.exit_menu()
 
-    # Verifica se existe a pasta do programa e cria a pasta para salvar os repos baixados
+    # Verifica se existe a pasta do programa existe, se não, cria a pasta para salvar os repos baixados
     def create_folder(self):
         home = Path.home()
         self.path = pathlib.Path(f"{home}/GitGet/{self.user}/")
@@ -106,11 +105,11 @@ class GitGet:
             else:
                 self.find_user()
         else:
-            if __name__ == '__main__':
+            if __name__ == "__main__":
                 sys.exit()
 
 
 gitget = GitGet()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     gitget.welcome()

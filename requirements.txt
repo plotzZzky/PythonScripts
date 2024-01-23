@@ -2,3 +2,4 @@ art
 requests
 pykeepass
 plotly
+typer[all]

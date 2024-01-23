@@ -10,22 +10,29 @@ class GraphClass:
 
     def create_graph(self):
         # Criação dos subplots
-        self.fig = make_subplots(rows=2, cols=2, horizontal_spacing=0.01, vertical_spacing=0.02,
-                                 specs=[[{'type': 'pie'}, {'type': 'pie'}], [{'type': 'pie'}, {'type': 'pie'}]],
-                                 )
+        self.fig = make_subplots(
+            rows=2,
+            cols=2,
+            horizontal_spacing=0.01,
+            vertical_spacing=0.02,
+            specs=[
+                [{"type": "pie"}, {"type": "pie"}],
+                [{"type": "pie"}, {"type": "pie"}],
+            ],
+        )
 
         self.create_simple_pie()
 
     # Gera o graficos pizza com todas informações grais do orçamento
     def create_simple_pie(self):
-        name = 'Gráfico geral das despesas'
-        labels = ['Gastos essencias', 'Gastos pessoais', 'Economias', 'saldo']
-        colors = ['red', 'orange', 'blue', 'green']
+        name = "Gráfico geral das despesas"
+        labels = ["Gastos essencias", "Gastos pessoais", "Economias", "saldo"]
+        colors = ["red", "orange", "blue", "green"]
         values = [
             self.data.gastos_essenciais,
             self.data.gastos_pessoais,
             self.data.economias,
-            self.data.saldo
+            self.data.saldo,
         ]
 
         self.create_generic_pie(name, values, labels, colors, 1, 1)
@@ -33,7 +40,7 @@ class GraphClass:
 
     # Gera o graficos pizza com todas informações detalhadas do orçamento
     def create_detailed_pie(self):
-        name = 'Gráfico detalhado das despesas'
+        name = "Gráfico detalhado das despesas"
         values_data = [
             {"value": self.data.aluguel, "label": "Aluguel"},
             {"value": self.data.transporte, "label": "Transporte"},
@@ -52,17 +59,17 @@ class GraphClass:
         values = []
         labels = []
         for item in values_data:
-            if item['value'] > 0:
-                values.append(item['value'])
-                labels.append(item['label'])
+            if item["value"] > 0:
+                values.append(item["value"])
+                labels.append(item["label"])
 
         self.create_generic_pie(name, values, labels, [], 1, 2)
         self.create_income_pie()
 
     # cria o grafico que mostra o percentual das fontes de renda
     def create_income_pie(self):
-        name = 'Gráfico das fontes de renda'
-        colors = ['green', 'blue', 'yellow', 'orange']
+        name = "Gráfico das fontes de renda"
+        colors = ["green", "blue", "yellow", "orange"]
         values = []
         labels = []
         values_data = [
@@ -72,9 +79,9 @@ class GraphClass:
             {"value": self.data.outras_rendas, "label": "Outras rendas"},
         ]
         for item in values_data:
-            if item['value'] > 0:
-                values.append(item['value'])
-                labels.append(item['label'])
+            if item["value"] > 0:
+                values.append(item["value"])
+                labels.append(item["label"])
 
         self.create_generic_pie(name, values, labels, colors, 2, 1)
 
@@ -86,33 +93,32 @@ class GraphClass:
 
     # Cria o grafico do porcentual gasto com aluguel
     def create_rent_pie(self):
-        name = 'Gráfico porcentagem da despesa com aluguel'
+        name = "Gráfico porcentagem da despesa com aluguel"
         saldo = self.data.rendimentos - self.data.aluguel
         values = [self.data.aluguel, saldo]
-        labels = ['Aluguel', 'Saldo']
-        colors = ['red', 'blue']
+        labels = ["Aluguel", "Saldo"]
+        colors = ["red", "blue"]
 
         self.create_generic_pie(name, values, labels, colors, 2, 2)
         self.add_title()
 
     # Função generica para criação dos graficos
     def create_generic_pie(self, name, values, labels, colors, row, col):
-        self.fig.add_trace(go.Pie(
-            name="",
-            labels=labels,
-            values=values,
-            marker=dict(
-                colors=colors,
+        self.fig.add_trace(
+            go.Pie(
+                name="",
+                labels=labels,
+                values=values,
+                marker=dict(
+                    colors=colors,
+                ),
+                title=dict(text=name, font=dict(size=26, family="Calibri")),
+                showlegend=False,  # Esconde a legenda do gráfico
+                textinfo="percent",
+                textfont=dict(size=16),
             ),
-            title=dict(
-                text=name, font=dict(size=26, family="Calibri")
-            ),
-            showlegend=False,  # Esconde a legenda do gráfico
-            textinfo='percent',
-            textfont=dict(size=16)
-        ),
             row=row,
-            col=col
+            col=col,
         )
 
     def add_title(self):
@@ -127,7 +133,7 @@ class GraphClass:
                 color="black",
             ),
             margin=dict(t=40, b=0),
-            height=1200
+            height=1200,
         )
 
         self.show_graph()
