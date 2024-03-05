@@ -1,11 +1,10 @@
-import typer
 import art
 from rich import print
 from pathlib import Path
 import os
 
 
-from variables import urls_base, urls_system
+from DjangoForge.variables import urls_base, urls_system
 
 
 class DjangoForge:
@@ -125,7 +124,7 @@ class DjangoForge:
     # Adiciona a lista de apps ao settings do django
     def insert_apps_in_project_settings(self):
         db_name = f"{self.project_name}_test"
-        apps = "\n".join([f"\titem {item}" for item in self.apps])
+        apps = "\n".join([f"\titem {item}" for item in self.list_apps])
         # settings_content = settings.format(name=db_name, apps=apps)
         # subprocess.call(f"echo {settings_content} > back/system.settings.py")
 
@@ -136,12 +135,13 @@ class DjangoForge:
         Path.mkdir(Path(self.front_folder))
         self.create_front()
 
-    def create_front(self):
+    @staticmethod
+    def create_front():
         commands = ["exit()", "npx create-next-app@latest", "npm install"]
         for command in commands:
             os.system(command)
 
 
-app_typer = typer.Typer()
-app = DjangoForge()
-app.wellcome()
+forge = DjangoForge()
+if __name__ == '__main__':
+    forge.wellcome()

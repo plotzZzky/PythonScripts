@@ -17,7 +17,7 @@ class GenerateData:
 
     def open_file(self):
         try:
-            f = open(self.path / "relatorio.csv")
+            f = open(f"{self.path}/relatorio.csv")
             self.file = csv.reader(f, delimiter=";")
             self.get_data()
         except FileExistsError:

@@ -2,4 +2,8 @@ art
 requests
 pykeepass
 plotly
-typer[all]
+rich
+pandas
+odfpy
+openpyxl
+psutil

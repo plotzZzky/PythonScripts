@@ -1,6 +1,5 @@
 from rich import print
 from rich.progress import Progress
-from rich.console import Console
 import psutil
 import platform
 import time
@@ -12,11 +11,12 @@ class PySystem:
     # Monitor do sistema via terminal feito com python
     def __init__(self):
         self.total_memory = psutil.virtual_memory().total / (1024 ** 3)
-        self.RISK = 70 # Valor maximo ideal do uso do hardware
+        self.RISK = 70  # Valor maximo ideal do uso do hardware
 
     def wellcome(self):
         art.tprint(f"{' ' * 2} PySystem", 'tarty1')
         print(f"{'=_' * 17} System {'_=' * 17}\n")
+        self.monitor_resources()
 
     # Limpa o terminal, se o systema for windows com o comando 'cls', se não com o 'clear'
     def clear_screen(self):
@@ -45,7 +45,6 @@ class PySystem:
         print(cpu_progress)
         print(f"- CPU: [bold {color}]{percent}% [/bold {color}] - {cores_percent}\n")
 
-    
     def get_memory_percent(self):
         used_memory = psutil.virtual_memory().used / (1024 ** 3)
         percent = psutil.virtual_memory().percent
@@ -76,7 +75,6 @@ class PySystem:
     def monitor_resources(self):
         while True:
             self.clear_screen()
-            self.wellcome()
 
             self.get_system_info()
 
@@ -89,10 +87,10 @@ class PySystem:
             time.sleep(1)
 
 
-app = PySystem()
+pysystem = PySystem()
 
 if __name__ == "__main__":
     try:
-        app.monitor_resources()
+        pysystem.wellcome()
     except KeyboardInterrupt:
         print("\nMonitoramento encerrado.")

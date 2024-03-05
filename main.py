@@ -1,10 +1,13 @@
-from DjangoForge.main import djangoForge
+from DjangoForge.main import forge
+from EmailSender.main import email_creator
+from FindCompanyInfo.main import find
 from GitGet.main import gitget
 from IPInspector.main import ip
 from PasswordTest.main import pwd
 from Tpass.main import tpass
 from PyNance.main import pynance
-from Team_Report.main import report
+from PySystem.main import pysystem
+from TeamReport.main import report
 import art
 
 
@@ -13,11 +16,14 @@ class Menu:
     def __init__(self):
         self.apps = [
             "DjangoForge",
-            "PyNance",
+            "EmailSender",
+            "FindCompanyInfo",
             "GitGet",
             "IPInspector",
             "PasswordTest",
-            "Team Report",
+            "PyNance",
+            "PySytem",
+            "TeamReport",
             "Tpass",
         ]
         self.print_space = f"{'-_' * 20}"
@@ -54,11 +60,14 @@ class Menu:
     # Executa o script selecionado pelo usuario
     def open_app(self, option):
         funcs = [
-            djangoForge.wellcome,
+            forge.wellcome,
+            email_creator.wellcome,
+            find.wellcome,
             gitget.welcome,
             ip.wellcome,
             pwd.wellcome,
             pynance.wellcome,
+            pysystem.wellcome,
             report.wellcome,
             tpass.wellcome,
         ]

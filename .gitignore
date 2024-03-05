@@ -1,6 +1,7 @@
 *.csv
 *.pyc
 *.json
+*.ods
 
 venv/
 .idea/

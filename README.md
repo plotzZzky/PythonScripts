@@ -1,20 +1,17 @@
 <h1 align="center"> Python Scripts </h1>
 
-### Coletânea com diversos Scripts Python criados por mim, com propósitos distintos
+### Ampla coleção de scripts Python desenvolvidos por mim, abrangendo uma variedade de propósitos, desde automação de tarefas para atividades administrativas até segurança digital.
 
 <h2 align="center"> DjangoForge </h2>
 
-### Script para automatizar parte da criação de projetos com o Django e React.
-![DjangoForge](https://github.com/plotzZzky/PythonScripts/assets/12895974/e9639321-c562-4b70-80ac-9990e0e3e34d)
+#### Script para automatizar parte da criação de projetos com o Django e React.
 
-## Importante:
+#### Importante:
 - No momento so funciona no linux;
 - Edit a const TERMINAL com o nome do seu terminal favorito;
 
-## Caracteristicas:
-- [x] Cria a pasta com o nome do projeto;
-- [x] Cria uma pasta pro backend;
-- [x] Cria uma pasta pro frontend;
+#### Caracteristicas:
+- [x] Cria as pastas do projeto(projectname, backend, frontend);
 - [x] Cria o frontend com vite ou css vanilla;
 - [x] Cria o ambiente virtual python;
 - [x] Gera o arquivo requirements.txt com as dependencias escolhidas pelo usuario;
@@ -23,51 +20,63 @@
 - [x] Para cada pasta de app é criado os arquivos urls.py;
 - [x] Prenche o arquivo urls.py do projeto com os end-points basicos;
 - [x] Adiciona os apps ao settings.py;
-- [ ] **Este projeto esta em andamento, melhorias em breve...**;
 
+<h2 align="center"> EmailSender </h2>
+
+#### Script que automatiza o envio de email para clientes
+
+#### Caracteristicas:
+- [x] Preenche o email com os dados do cliente
+- [x] Permite usar modelos de diferentes para cada tipo de cliente 
+- [ ] Projeto em andamento 
+
+<h2 align="center"> FindCompanyInfo </h2>
+
+#### Script que automatiza a busca de informações sobre uma empresa no sistema do minha receita
 
 <h2 align="center"> GitGet </h2>
   
-### Script para baixar repositorios de um user do GitHub.
+#### Script para baixar repositorios de um user do GitHub.
 
-![gitget](https://github.com/plotzZzky/PythonScripts/assets/12895974/f9ece8f3-3275-4d3f-b08e-8fb620fdbb46)
-
-### Caracteristicas:
+#### Caracteristicas:
 
 - [x] Busca por username;
 - [x] Permite baixar todos os repos ou selecionar um especifico;
 - [x] Cria uma pasta na home do usuario, chamada GitGet, para salvar os projetos;
 - [x] Salva os repos em uma pasta com o nome do usuario ("Home/GitGet/User/repo/");
-- [x] Feito com python 3.11;
 
 <h2 align="center"> IpInspector </h2>
 
-### Script para obter informações da localização de um servidor por IP ou Dominio.
-
-![IpInspector](https://github.com/plotzZzky/PythonScripts/assets/12895974/77779a7b-6f39-4e60-9049-9193430ff3a8)
-
+#### Script para obter informações da localização de um servidor por IP ou Dominio.
 
 <h2 align="center"> PasswordTest </h2>
 
-### Script Python para testar a segurança e reincidência de senhas usando um algoritimo randômico.
+#### Script Python para testar a segurança e reincidência de senhas usando um algoritimo randômico.
 
-![pwd](https://user-images.githubusercontent.com/12895974/216612141-c7242bb9-743e-4c51-813a-c05686602710.png)
 
-### Caracteristicas:
+#### Caracteristicas:
 - [x] Gera senhas randomicas;
 - [x] Executa um "BruteForce attack" para tentar quebra-la exibindo os resultados;
 - [x] Permite que você passe uma senha e o script tenata quebra-la;
 - [x] Testa a reincidencia de uma senha usando um algoritimo de geração randomica;
 
+<h2 align="center"> PyNance </h2>
+
+#### Ferramenta para representar sua vida financeira atraves de graficos 
+
+<h2 align="center"> PySystem </h2>
+
+#### Monitor do usado do systema via terminal, feito em python
+
+<h2 align="center"> TeamReport </h2>
+
+#### Ferramenta para acompanhar a performance de uma equipe de funcinarios na execução de um conjunto de tarefas
 
 <h2 align="center"> TerminalPass </h2>
 
-![tpass](https://github.com/plotzZzky/PythonScripts/assets/12895974/c8579ebc-09a1-4c51-ac49-50a31f0d28f0)
+#### Gerenciador de senhas via terminal, feito em python usando pykeepass
 
-### Aplicativo de terminal para gerenciar senhas usando pykeepass, feito em python
-
-### Caracteristicas:
+#### Caracteristicas:
 - [x] Cria, ou abre um banco de senhas (.kdbx);
 - [x] Permite criar ou deletar entradas no banco de senhas;
 - [x] Permite passar suas senhas ou criar uma randomica;
-- [ ] Mais em breve;
