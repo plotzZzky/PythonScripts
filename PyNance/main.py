@@ -5,15 +5,18 @@ import art
 
 
 class PynanceMenu:
-
     def wellcome(self):
-        art.tprint(f'{" " * 5} PyNance', 'tarty1')
+        art.tprint(f'{" " * 5} PyNance', "tarty1")
         print(f"{'=' * 80}")
         print("Script python para ajudar a gerenciar sua vida fineceira")
-        print("Todos os valores devem ser preenchidos com valores inteiros ignorando os centavos\n")
-        option = input("Digite Y para preencher os valores ou qualquer tecla para testar a ferramenta "
-                       "com valores genericos\n").lower()
-        if option == 'y':
+        print(
+            "Todos os valores devem ser preenchidos com valores inteiros ignorando os centavos\n"
+        )
+        option = input(
+            "Digite Y para preencher os valores ou qualquer tecla para testar a ferramenta "
+            "com valores genericos\n"
+        ).lower()
+        if option == "y":
             data.get_income()
         else:
             data.test()
@@ -25,5 +28,5 @@ pies = GraphClass(data)
 pynance = PynanceMenu()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pynance.wellcome()

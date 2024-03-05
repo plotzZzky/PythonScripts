@@ -1,7 +1,10 @@
 *.csv
 *.pyc
+*.json
+*.ods
 
 venv/
 .idea/
 .git/
 */__pycache__/*
+*Typer/

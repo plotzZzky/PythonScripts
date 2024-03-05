@@ -2,3 +2,8 @@ art
 requests
 pykeepass
 plotly
+rich
+pandas
+odfpy
+openpyxl
+psutil

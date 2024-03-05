@@ -17,8 +17,8 @@ class GenerateData:
 
     def open_file(self):
         try:
-            f = open(self.path / 'relatorio.csv')
-            self.file = csv.reader(f, delimiter=';')
+            f = open(f"{self.path}/relatorio.csv")
+            self.file = csv.reader(f, delimiter=";")
             self.get_data()
         except FileExistsError:
             sys.exit()
@@ -28,7 +28,7 @@ class GenerateData:
         for row in self.file:
             if n != 0:
                 # Formata o nome do colaborador, mantendo apenas o nome sem o sobrenome
-                name = row[1].split(' ')[0]
+                name = row[1].split(" ")[0]
 
                 # Quantidade total de tarefas
                 all_tasks = int(row[13])
@@ -43,7 +43,11 @@ class GenerateData:
                 completion_percentage = (completed_tasks / all_tasks) * 100
 
                 # Dados formatados para ser usado no grafico
-                data_dict = {"name": name, "values": values, "meta": completion_percentage}
+                data_dict = {
+                    "name": name,
+                    "values": values,
+                    "meta": completion_percentage,
+                }
                 self.values.append(data_dict)
             else:
                 n += 1  # Ignora o cabeçalho da tabela
@@ -52,9 +56,9 @@ class GenerateData:
 class GraphPie:
     # Classe que gera os graficos pizza medindo a performance da equipe
     def __init__(self, data):
-        strdate = str(date.today()).split('-')
+        strdate = str(date.today()).split("-")
         today = f"{strdate[2]}/{strdate[1]}/{strdate[0]}"
-        state = 'Coletadas'
+        state = "Coletadas"
         self.title = f'Desempenho da equipe na fase "{state}", no dia {today}'  # Titulo da pagina
 
         self.META = 65  # Meta da porcentagem de tarefas concluidas na data atual
@@ -64,10 +68,16 @@ class GraphPie:
 
     def create_subplot(self):
         # Criação dos subplots (2 linhas, 4 colunas)
-        self.fig = make_subplots(rows=2, cols=4,
-                                 specs=[[{'type': 'pie'}, {'type': 'pie'}, {'type': 'pie'}, {'type': 'pie'}],
-                                        [{'type': 'pie'}, {'type': 'pie'}, {'type': 'pie'}, {'type': 'pie'}]],
-                                 horizontal_spacing=0.01, vertical_spacing=0.01, )
+        self.fig = make_subplots(
+            rows=2,
+            cols=4,
+            specs=[
+                [{"type": "pie"}, {"type": "pie"}, {"type": "pie"}, {"type": "pie"}],
+                [{"type": "pie"}, {"type": "pie"}, {"type": "pie"}, {"type": "pie"}],
+            ],
+            horizontal_spacing=0.01,
+            vertical_spacing=0.01,
+        )
         self.create_pies()
 
     # Gera os graficos pizza
@@ -77,10 +87,10 @@ class GraphPie:
 
         for item in self.values:
             # Se o colaborador atingir a meta a cor do grafico sera azul, se não, vermelha
-            color = 'blue' if item['meta'] > self.META else 'red'
-            name = item['name'].capitalize()  # Nome do colaborador
+            color = "blue" if item["meta"] > self.META else "red"
+            name = item["name"].capitalize()  # Nome do colaborador
 
-            self.generic_pie(item['values'], color, name, row, col)
+            self.generic_pie(item["values"], color, name, row, col)
 
             col += 1
             if col == 5:
@@ -90,18 +100,17 @@ class GraphPie:
         self.add_title()
 
     def generic_pie(self, values, color, name, row, col):
-        self.fig.add_trace(go.Pie(
-            name="",
-            labels=self.labels,
-            values=values,
-            marker=dict(colors=[color, 'lightgrey']),
-            title=dict(
-                text=name, font=dict(size=26, family="Calibri")
+        self.fig.add_trace(
+            go.Pie(
+                name="",
+                labels=self.labels,
+                values=values,
+                marker=dict(colors=[color, "lightgrey"]),
+                title=dict(text=name, font=dict(size=26, family="Calibri")),
+                showlegend=False,  # Remove a leganda lateral
             ),
-            showlegend=False,  # Remove a leganda lateral
-        ),
             row=row,
-            col=col
+            col=col,
         )
 
     def add_title(self):
@@ -136,5 +145,5 @@ class ReportMenu:
 
 report = ReportMenu()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     report.wellcome()
