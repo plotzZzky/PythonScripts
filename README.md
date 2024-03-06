@@ -12,7 +12,7 @@
 
 #### Caracteristicas:
 - [x] Cria as pastas do projeto(projectname, backend, frontend);
-- [x] Cria o frontend com vite ou css vanilla;
+- [x] Cria o frontend com nextjs ou css vanilla;
 - [x] Cria o ambiente virtual python;
 - [x] Gera o arquivo requirements.txt com as dependencias escolhidas pelo usuario;
 - [x] Instala as dependencias do arquivo requerimentes.txt, incluido as padrôes;

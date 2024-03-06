@@ -4,7 +4,7 @@ from pathlib import Path
 import os
 
 
-from DjangoForge.variables import urls_base, urls_system
+from DjangoForge.variables import urls_base, urls_system, settings
 
 
 class DjangoForge:
@@ -12,18 +12,19 @@ class DjangoForge:
         # Edit this
         self.terminal = "xfce4-terminal"
 
-        self.BASE_DIC = Path().cwd()
+        self.BASE_DIC = Path('DjangoForge').cwd()
         self.project_name = None
         self.api = False
 
         # folders
-        self.folder = ""
-        self.back_folder = ""
+        self.folder = None
+        self.back_folder = None
+        self.front_folder = None
 
         self.list_apps = ["users"]
         self.requirements = [
             "django",
-            "psycopg2",
+            "psycopg2-binary",
         ]
         self.requirements_text = ""
 
@@ -50,14 +51,11 @@ class DjangoForge:
 
     # Verifica se deseja criar o front e o back separados
     def check_if_api(self):
-        self.api = input("Criar front e back separados?[Y/N]:\n").lower()
-        if self.api == "y":
-            self.requirements = [
-                "django",
-                "psycopg2",
-                "djangorestframework",
-                "django-cors-headers",
-            ]
+        query = input("Criar front e back separados?[Y/N]:\n").lower()
+        self.api = True if query == 'y' else False
+
+        if self.api:
+            self.requirements.extend(["djangorestframework", "django-cors-headers"])
         self.get_requirements()
 
     # Recebe a lista de requirements do projeto via input e os adiciona na lista base
@@ -65,23 +63,30 @@ class DjangoForge:
         query = input(
             'Digite os pacotes a serem instalados no back, separados por ",":\n'
         )
-        self.requirements.extend(query.split(","))
+        if query:
+            self.requirements.extend(query.split(","))
         self.get_app_list()
 
     # Recebe a lista de apps do django via input
     def get_app_list(self):
+        print('Digite o nome dos apps para adicionar a seu projeto separados por ",":\n')
         query = input(
-            'Digite o nome dos apps para adicionar a seu projeto separados por ",":\n'
-            "apps padrao: core e users\n"
+            "apps padrao: users\n"
         )
-        self.list_apps.extend(query.split(","))
+        if query:
+            self.list_apps.extend(query.split(","))
         self.create_back_folder()
 
     # Cria as pastas do back
     def create_back_folder(self):
-        self.back_folder = f"{self.folder}back/"
+        if self.api:
+            """ Se for api cria pasta project/back/ e project/front/"""
+            self.back_folder = f"{self.folder}back/"
+            Path.mkdir(Path(self.folder))
+        else:
+            """ se não cria apenas a past project/ """
+            self.back_folder = self.folder
 
-        Path.mkdir(Path(self.folder))
         Path.mkdir(Path(self.back_folder))
         self.create_requirements()
 
@@ -95,13 +100,14 @@ class DjangoForge:
         self.create_back()
 
     def create_back(self):
-        commands = [
-            f"python3 -m venv {self.back_folder}venv",
-            f"source {self.back_folder}venv/bin/activate; pip install -r {self.back_folder}requirements.txt",
-            f"touch {self.back_folder}.gitignore",
+        commands = (
+            f"python3 -m venv {self.back_folder}.venv; "
+            f"source {self.back_folder}.venv/bin/activate; "
+            f"pip install -r {self.back_folder}requirements.txt; "
+            f"touch {self.back_folder}.gitignore;"
             f"django-admin startproject system {self.back_folder}.",
             f"echo '{urls_system}' > {self.back_folder}system/urls.py",
-        ]
+        )
         for command in commands:
             os.system(command)
         self.create_apps()
@@ -110,34 +116,42 @@ class DjangoForge:
     def create_apps(self):
         for app in self.list_apps:
             self.app_command(app)
-        self.create_front_folder()
+        self.insert_apps_in_project_settings()
 
     # cria os django-app escolhidos pelo usuario
     def app_command(self, app):
         commands = [
-            f" cd {self.back_folder}; django-admin startapp {app}",
-            f'echo "{urls_base}" > {self.back_folder}{app}/urls.py'
+            f"source {self.back_folder}.venv/bin/activate; cd {self.back_folder}; ./manage.py startapp {app}; "
+            f"echo '{urls_base}' > {self.back_folder}{app}/urls.py"
         ]
+        if not self.api:
+            commands.append(f"mkdir {self.back_folder}{app}/templates; mkdir {self.back_folder}{app}/static")
         for command in commands:
             os.system(command)
 
     # Adiciona a lista de apps ao settings do django
     def insert_apps_in_project_settings(self):
+        apps = "".join([f"    '{item}',\n" for item in self.list_apps])
         db_name = f"{self.project_name}_test"
-        apps = "\n".join([f"\titem {item}" for item in self.list_apps])
-        # settings_content = settings.format(name=db_name, apps=apps)
-        # subprocess.call(f"echo {settings_content} > back/system.settings.py")
+        settings_content = settings.replace('{apps}', apps).replace('{db_name}', db_name)
+        os.system(f'echo "{settings_content}" > {self.back_folder}system/settings.py')
+
+        if self.api:
+            self.create_front_folder()
 
     # Cria as pastas do front
     def create_front_folder(self):
         self.front_folder = f"{self.folder}front/"
-
         Path.mkdir(Path(self.front_folder))
         self.create_front()
 
-    @staticmethod
-    def create_front():
-        commands = ["exit()", "npx create-next-app@latest", "npm install"]
+    def create_front(self):
+        commands = (
+            "exit()",
+            f"cd {self.front_folder} "
+            f"&& npx create-next-app . --js --use-npm --eslint --no-src-dir --app --no-tailwind --import-alias @comps/*"
+            f"&& npm install"
+        )
         for command in commands:
             os.system(command)
 
