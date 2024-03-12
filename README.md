@@ -66,7 +66,7 @@
 
 <h2 align="center"> PySystem </h2>
 
-#### Monitor do usado do systema via terminal, feito em python
+#### Monitor do systema via terminal feito em python
 
 <h2 align="center"> TeamReport </h2>
 
