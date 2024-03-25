@@ -5,7 +5,8 @@ import art
 
 
 class PynanceMenu:
-    def wellcome(self):
+    @staticmethod
+    def wellcome():
         art.tprint(f'{" " * 5} PyNance', "tarty1")
         print(f"{'=' * 80}")
         print("Script python para ajudar a gerenciar sua vida fineceira")
