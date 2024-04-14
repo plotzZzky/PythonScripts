@@ -151,4 +151,6 @@ class PyGraphy:
 
 
 pygraphy = PyGraphy()
-pygraphy.wellcome()
+
+if __name__ == '__name__':
+    pygraphy.wellcome()

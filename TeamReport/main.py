@@ -30,14 +30,15 @@ class GenerateData:
                 # Formata o nome do colaborador, mantendo apenas o nome sem o sobrenome
                 name = row[1].split(" ")[0]
 
-                # Quantidade total de tarefas
                 all_tasks = int(row[13])
 
                 # Quantidade ja completada de tarefas
-                completed_tasks = int(row[12])
+                completed_tasks = int(row[4])
+
+                incomplete_tasks = int(row[13])
 
                 # Lista com valores de completas e incompletas para ser usada nos graficos pizza
-                values = [row[12], (all_tasks - completed_tasks)]
+                values = [completed_tasks, incomplete_tasks]
 
                 # Porcentagem das tarefas concluidas
                 completion_percentage = (completed_tasks / all_tasks) * 100
@@ -58,13 +59,14 @@ class GraphPie:
     def __init__(self, data):
         strdate = str(date.today()).split("-")
         today = f"{strdate[2]}/{strdate[1]}/{strdate[0]}"
-        state = "Coletadas"
-        self.title = f'Desempenho da equipe na fase "{state}", no dia {today}'  # Titulo da pagina
 
-        self.META = 65  # Meta da porcentagem de tarefas concluidas na data atual
-
+        state = "Etapa do projeto"
+        self.title = f'Desempenho da equipe na fase "{state}", no dia {today}'
         self.labels = ["Concluidas", "Faltantes"]
         self.values = data.values  # Valores gerados pela classe GenerateData
+
+        self.META = 65  # Meta da porcentagem de tarefas concluidas na data atual
+        self.fig = None
 
     def create_subplot(self):
         # Criação dos subplots (2 linhas, 4 colunas)
@@ -132,18 +134,14 @@ class GraphPie:
         self.fig.show()
 
 
-# Função para iniciar o script pelo menu da raiz do projeto
-class ReportMenu:
-    def __init__(self):
-        self.generate_data = GenerateData()
-        self.pie = GraphPie(self.generate_data)
-
-    def wellcome(self):
-        self.generate_data.open_file()
-        self.pie.create_subplot()
+generate_data = GenerateData()
+pie = GraphPie(generate_data)
 
 
-report = ReportMenu()
+def start():
+    generate_data.open_file()
+    pie.create_subplot()
+
 
 if __name__ == "__main__":
-    report.wellcome()
+    start()
