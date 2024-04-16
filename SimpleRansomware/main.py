@@ -26,7 +26,7 @@ class SimpleRansomware:
         print("Cuidado:\n"
               "Essa ferramneta não salva a chave para recuperar os arquivos, "
               "os danos causados por ela são sua responsabilidade")
-        option = input("Deseja executar essa ferramenta no seu sistema?(y/n)").lower()
+        option = input("Deseja executar essa ferramenta no seu sistema?(y/n)\n").lower()
         if option == 'y':
             self.start()
         else:
@@ -43,7 +43,7 @@ class SimpleRansomware:
     def check_folders(self):
         """ Verifica as subpastas na pasta raiz indicada """
         folders = []
-        self.path = Path('test/')
+        self.path = Path('Test/')
 
         for item in self.path.iterdir():
             if item.is_dir():
