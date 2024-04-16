@@ -27,7 +27,7 @@ class Menu:
             "PasswordTest",
             "PyGraphy",
             "PyNance",
-            "PySytem",
+            "PySystem",
             "SimpleRansomware",
             "TeamReport",
             "Tpass",

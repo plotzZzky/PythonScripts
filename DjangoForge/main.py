@@ -10,6 +10,7 @@ from DjangoForge.variables import urls_base, urls_system
 class DjangoForge:
     def __init__(self):
         # Edit this
+        self.front_folder = None
         self.terminal = "xfce4-terminal"
 
         self.BASE_DIC = Path().cwd()
@@ -131,7 +132,6 @@ class DjangoForge:
     # Cria as pastas do front
     def create_front_folder(self):
         self.front_folder = f"{self.folder}front/"
-
         Path.mkdir(Path(self.front_folder))
         self.create_front()
 

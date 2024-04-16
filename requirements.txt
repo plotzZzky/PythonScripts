@@ -8,3 +8,4 @@ odfpy
 openpyxl
 psutil
 cryptography
+pytube
