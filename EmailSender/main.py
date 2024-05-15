@@ -105,7 +105,7 @@ class EmailCreator:
     def show_email_model(self, title, office, email_body):
         """ Função para testar os emails antes de enviar """
         print(f"{'-' * 120}")
-        print(title.format(office), email_body)
+        print(title.FILE_FORMAT(office), email_body)
         print()
         self.save_email_model(title, office, email_body)
 
@@ -116,7 +116,7 @@ class EmailCreator:
         file_name = x.replace(' ', '_').lower().replace('_-_', '-').replace('/', '-')
 
         with open(f'test/{file_name}.txt', 'w') as file:
-            file.write(title.format(office))
+            file.write(title.FILE_FORMAT(office))
             file.write(email_body)
             file.close()
 
