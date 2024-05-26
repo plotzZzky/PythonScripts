@@ -1,6 +1,5 @@
 import sys
 
-name =
 
 class PyCli:
     """ Modelo de BoilerPlate de appcli feito em python """
