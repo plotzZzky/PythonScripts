@@ -16,9 +16,8 @@ import art
 
 class FindInfo:
     """ Busca informações sobre um cnpj no site do minha receita ou no banco de dados local """
-    def __init__(self):
-        self.companies = []
-        self.data = []
+    companies: list = []
+    data: list = []
 
     def wellcome(self):
         art.tprint(f'{" " * 4} FindCompanyInfo', "cybersmall")
@@ -27,10 +26,10 @@ class FindInfo:
 
     def open_file(self):
         """ Abre a lista com todas as empresas """
-        path_file = Path('FindCompanyInfo/companies.ods').absolute()
+        path_file: Path = Path('FindCompanyInfo/companies.ods').absolute()
         df = pd.read_excel(path_file)
-        dicts = df.to_dict(orient='records')
-        self.companies = [{key: company[key] for key in company} for company in dicts]
+        dicts: list = df.to_dict(orient='records')
+        self.companies: list = [{key: company[key] for key in company} for company in dicts]
 
         self.find_info()
 
@@ -40,18 +39,17 @@ class FindInfo:
             self.get_data(company)
         self.save_file()
 
-    def get_data(self, company):
+    def get_data(self, company: dict):
         """ Busca informações para cada una das empresas da lista """
-        url = f"https://minhareceita.org/{company['CNPJ']}"  # http://0.0.0.0:8000 url local
+        url: str = f"https://minhareceita.org/{company['CNPJ']}"  # http://0.0.0.0:8000 url local
         response = requests.get(url)
-        json_res = response.json()
+        json_res: dict = response.json()
 
         self.format_data(json_res)
 
-    def format_data(self, data):
+    def format_data(self, data: dict):
         """ Cria um novo json resumido com as informações mais importantes da empresa """
-        print(data)
-        data_dict = {
+        data_dict: dict = {
             "CNPJ": data['cnpj'],
             "Razao social": data['razao_social'],
             "nome fantasia": data['nome_fantasia'],

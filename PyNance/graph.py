@@ -4,9 +4,11 @@ from plotly.subplots import make_subplots
 
 class GraphClass:
     # Classe que gera a tabela e mostra ela
+    title: str = "Graficos do seu orçamento"
+    fig = None
+
     def __init__(self, data):
         self.data = data
-        self.title = "Graficos do seu orçamento"
 
     def create_graph(self):
         # Criação dos subplots
@@ -25,10 +27,10 @@ class GraphClass:
 
     # Gera o graficos pizza com todas informações grais do orçamento
     def create_simple_pie(self):
-        name = "Gráfico geral das despesas"
-        labels = ["Gastos essencias", "Gastos pessoais", "Economias", "saldo"]
-        colors = ["red", "orange", "blue", "green"]
-        values = [
+        name: str = "Gráfico geral das despesas"
+        labels: list = ["Gastos essencias", "Gastos pessoais", "Economias", "saldo"]
+        colors: list = ["red", "orange", "blue", "green"]
+        values: list = [
             self.data.gastos_essenciais,
             self.data.gastos_pessoais,
             self.data.economias,
@@ -40,8 +42,8 @@ class GraphClass:
 
     # Gera o graficos pizza com todas informações detalhadas do orçamento
     def create_detailed_pie(self):
-        name = "Gráfico detalhado das despesas"
-        values_data = [
+        name: str = "Gráfico detalhado das despesas"
+        values_data: list = [
             {"value": self.data.aluguel, "label": "Aluguel"},
             {"value": self.data.transporte, "label": "Transporte"},
             {"value": self.data.saude, "label": "Saúde"},
@@ -56,8 +58,8 @@ class GraphClass:
             {"value": self.data.refeicoes_especiais, "label": "Refeições especiais"},
             {"value": self.data.saldo, "label": "Saldo"},
         ]
-        values = []
-        labels = []
+        values: list = []
+        labels: list = []
         for item in values_data:
             if item["value"] > 0:
                 values.append(item["value"])
@@ -68,11 +70,11 @@ class GraphClass:
 
     # cria o grafico que mostra o percentual das fontes de renda
     def create_income_pie(self):
-        name = "Gráfico das fontes de renda"
-        colors = ["green", "blue", "yellow", "orange"]
-        values = []
-        labels = []
-        values_data = [
+        name: str = "Gráfico das fontes de renda"
+        colors: list = ["green", "blue", "yellow", "orange"]
+        values: list = []
+        labels: list = []
+        values_data: list = [
             {"value": self.data.salario, "label": "Salário"},
             {"value": self.data.investimentos, "label": "Investimentos"},
             {"value": self.data.passivos, "label": "Passivos"},
@@ -93,11 +95,11 @@ class GraphClass:
 
     # Cria o grafico do porcentual gasto com aluguel
     def create_rent_pie(self):
-        name = "Gráfico porcentagem da despesa com aluguel"
-        saldo = self.data.rendimentos - self.data.aluguel
-        values = [self.data.aluguel, saldo]
-        labels = ["Aluguel", "Saldo"]
-        colors = ["red", "blue"]
+        name: str = "Gráfico porcentagem da despesa com aluguel"
+        saldo: int = self.data.rendimentos - self.data.aluguel
+        values: list = [self.data.aluguel, saldo]
+        labels: list = ["Aluguel", "Saldo"]
+        colors: list = ["red", "blue"]
 
         self.create_generic_pie(name, values, labels, colors, 2, 2)
         self.add_title()

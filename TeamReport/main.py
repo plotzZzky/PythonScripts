@@ -9,18 +9,19 @@ import csv
 
 class GenerateData:
     # Classe "generica" que recebe os dados e os formata para ser usado por outras classes que geram os graficos
-    def __init__(self):
-        self.values = []
-        self.file = None
+    values: list = []
+    file = None
 
-        self.path = Path(__file__).parent.resolve()
+    path = Path(__file__).parent.resolve()
 
     def open_file(self):
         try:
             f = open(f"{self.path}/relatorio.csv")
             self.file = csv.reader(f, delimiter=";")
+            f.close()
             self.get_data()
-        except FileExistsError:
+        except (FileExistsError, FileNotFoundError):
+            print("Relatorio não encontrado!")
             sys.exit()
 
     def get_data(self):

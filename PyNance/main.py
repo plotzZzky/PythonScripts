@@ -5,29 +5,34 @@ import art
 
 
 class PynanceMenu:
-    @staticmethod
-    def wellcome():
+    data = GetData()  # classe para preencher as informações dos graficos
+    pies = GraphClass(data)
+
+    def wellcome(self):
         art.tprint(f'{" " * 5} PyNance', "tarty1")
         print(f"{'=' * 80}")
         print("Script python para ajudar a gerenciar sua vida fineceira")
+        print("Todos os valores devem ser preenchidos com valores inteiros ignorando os centavos\n")
+        self.menu()
+
+    def menu(self):
         print(
-            "Todos os valores devem ser preenchidos com valores inteiros ignorando os centavos\n"
+            "Selecione uma opção:\n"
+            "1- Preencher com valores genericos para teste.\n"
+            "2- Preencher manualmente"
         )
-        option = input(
-            "Digite Y para preencher os valores ou qualquer tecla para testar a ferramenta "
-            "com valores genericos\n"
-        ).lower()
-        if option == "y":
-            data.get_income()
+        option: str = input().lower()
+        self.check_menu_option(option)
+
+    def check_menu_option(self, option: str = None):
+        if option == "1":
+            self.data.test()
         else:
-            data.test()
-        pies.create_graph()
+            self.data.get_income()
+        self.pies.create_graph()
 
 
-data = GetData()
-pies = GraphClass(data)
 pynance = PynanceMenu()
-
 
 if __name__ == "__main__":
     pynance.wellcome()

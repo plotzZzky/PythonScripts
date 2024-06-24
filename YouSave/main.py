@@ -6,10 +6,10 @@ import art
 
 class YouSave:
     """ Script para salvar videos do youtube"""
-    video_name = ''
+    video_name: str = ''
     streams = []
     home = Path.home()
-    filename = ''
+    filename: str = ''
 
     def wellcome(self):
         art.tprint(f'{" " * 11} YouSave', "tarty1")
@@ -18,7 +18,7 @@ class YouSave:
 
     def get_content(self):
         try:
-            url = input("Digite o url do video:\n")
+            url: str = input("Digite o url do video:\n")
             self.streams = YouTube(url).streams
             self.show_options_for_download()
         except exceptions.RegexMatchError:  # url invalida
@@ -33,24 +33,28 @@ class YouSave:
         n = 1
 
         for option in self.streams:
-            type = option.type
-            file = option.mime_type
-            res = f", resolution={option.resolution}" if option.resolution else ''
-            value = f"{n}- tipo={type}, formato={file}{res}"
-            print(value)
+            file_type: str = option.type
+            file: str = option.mime_type
+            res: str = f", resolution={option.resolution}" if option.resolution else ''
+            value: str = f"{n}- tipo={file_type}, formato={file}{res}"
             n += 1
+            print(value)
 
         self.select_option_for_download()
 
     def select_option_for_download(self):
-        option = input("\nSelecione a opção:\n")
-        folder = self.check_folder()
-        self.streams[int(option) - 1].download(output_path=folder)  # faz o download do arquivo selecionado
-        self.show_result()
+        try:
+            option: str = input("\nSelecione a opção:\n").lower()
+            folder: str = self.check_folder()
+            self.streams[int(option) - 1].download(output_path=folder)  # faz o download do arquivo selecionado
+            self.show_result()
+        except (IndexError, ValueError):
+            print("Opção invalida!\n")
+            self.show_options_for_download()
 
-    def check_folder(self):
+    def check_folder(self) -> str:
         """ Verifica se a pasta existe """
-        folder = f"{self.home}/yousave"
+        folder: str = f"{self.home}/yousave"
 
         if not Path(folder).exists():
             Path(folder).mkdir()
@@ -62,7 +66,7 @@ class YouSave:
         self.exit_menu()
 
     def exit_menu(self):
-        option = input("Baixar mais videos?(Y/N)\n").lower()
+        option: str = input("Baixar mais videos?(Y/N)\n").lower()
         if option == 'y':
             self.get_content()
         else:
@@ -70,6 +74,5 @@ class YouSave:
 
 
 you_save = YouSave()
-
 if __name__ == '__main__':
     you_save.wellcome()

@@ -3,8 +3,8 @@ import sys
 
 class PyCli:
     """ Modelo de BoilerPlate de appcli feito em python """
-    name = 'PyCli'
-    desc = "Um BoilerPlate simples de cliapp via terminal feito em python"
+    APP_NAME: str = 'PyCli'
+    APP_DESC: str = "Um BoilerPlate simples de cliapp feito em python"
 
     def __init__(self):
         self.menu_options = [
@@ -13,12 +13,12 @@ class PyCli:
         ]
 
     def wellcome(self):
-        print(f"{' ' * 30} {self.name}")
-        print(self.desc)
+        print(f"{' ' * 35} {self.APP_NAME}")
+        print(self.APP_DESC)
         self.start_menu()
 
     def start_menu(self):
-        print(f"{'__' * 16} Menu {'__' * 16}")
+        print(f"{'__' * 18} Menu {'__' * 18}")
 
         for index, option in enumerate(self.menu_options, 1):
             print(f"{index}- {option.__name__}")
@@ -27,8 +27,8 @@ class PyCli:
 
     def check_start_menu_option(self):
         try:
-            option = int(input("\nSelecione uma opção:\n"))
-            self.menu_options[option - 1]()  # chama a função selecionada
+            option: int = int(input("\nSelecione uma opção:\n")) - 1
+            self.menu_options[option]()  # chama a função selecionada
 
         except (ValueError, IndexError):
             print('\nOpção invalida!!!!!\n')
@@ -46,15 +46,16 @@ class PyCli:
 
     def exit_menu(self):
         try:
-            option = input("\nSair?(Y/N)\n")
+            option: str = input("\nSair?(Y/N)\n").lower()
 
-            if option.lower() == 'y':
+            if option == 'y':
                 sys.exit()
             else:
                 self.start_menu()
 
         except KeyboardInterrupt:
             print("\nSaindo...")
+            sys.exit()
 
 
 app = PyCli()

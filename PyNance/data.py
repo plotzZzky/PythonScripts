@@ -1,29 +1,29 @@
 class GetData:
     # Classe que recebe e calcula o rendimento e as despesas
-    def __init__(self):
-        self.sobre_rendimentos = (
+    about_incomes = (
             "Valores recebidos neste mês atraves de salarios, investimentos e passivos"
         )
-        self.sobre_gastos_essenciais = (
+    sobre_gastos_essenciais = (
             "Gastos recorentes e essencias para sua vida economica."
         )
-        self.sobre_gastos_pessoais = (
+    sobre_gastos_pessoais = (
             "Gastos recorentes e importantes para sua vida, mas não essenciais podendo ser "
             "reduzidas ou cortados em situações de emergencia"
         )
-        self.sobre_economias = "Valores guardados para metas ou emergencias"
+    sobre_economias = "Valores guardados para metas ou emergencias"
 
-    # Modelo generico de inpu para receber os valores
-    def get_value(self, placeholder):
+    @staticmethod
+    def get_value(placeholder: str = 'Digite um valor') -> int:
+        # Modelo generico de input para receber os valores
         while True:
             try:
-                value = int(input(placeholder))
+                value: int = int(input(placeholder))
                 return value
             except (ValueError, TypeError):
                 print(f"O valor deve ser em numeros inteiros!!!\n")
 
     def get_income(self):
-        print(self.sobre_rendimentos)
+        print(self.about_incomes)
 
         self.salario = self.get_value("Digite o valor liquido do seu salario:\n")
         self.investimentos = self.get_value(
@@ -59,15 +59,10 @@ class GetData:
             )
             self.educacao = self.get_value("Digite o valor gasto com educação:\n")
 
-            self.gastos_essenciais = (
-                self.telefonia
-                + self.aluguel
-                + self.transporte
-                + self.saude
-                + self.servicos
-                + self.alimentacao
-                + self.educacao
-            )
+            self.gastos_essenciais = sum([
+                self.telefonia, self.aluguel, self.transporte, self.saude,
+                self.servicos, self.alimentacao, self.educacao
+            ])
 
             print(f"O total de gastos essenciais foi de {self.gastos_essenciais}")
             self.get_personal_expenses()

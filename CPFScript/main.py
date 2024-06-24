@@ -1,3 +1,5 @@
+import sys
+
 from CPFScript.validate import validate
 from CPFScript.generate import generator
 import art
@@ -11,22 +13,29 @@ class CPFMenu:
         self.menu()
 
     def menu(self):
-        print(f"{'_' * 38} Menu {'_' * 38}\n"
-              "\n1- Validar matematicamente um cpf\n"
+        print(f"{'_' * 38} Menu {'_' * 38}")
+        print(
+              "1- Validar matematicamente um cpf\n"
               "2- Gerar um cpf ficticio para teste em sistemas\n"
+              "3- Sair \n"
               )
         try:
-            query = input("Digite a opção:\n")
+            query: str = input("Digite a opção:\n").lower()
             self.check_menu(query)
         except (ValueError, TypeError):
             print("Opção invalida!")
             self.menu()
+        except KeyboardInterrupt:
+            print("Saindo...")
 
     def check_menu(self, query):
         if query == '1':
             validate.get_cpf()
         elif query == '2':
             generator.check_uf()
+        elif query == '3':
+            print("Saindo...")
+            sys.exit()
         else:
             print("Opção não existe!\n")
         self.menu()

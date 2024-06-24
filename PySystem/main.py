@@ -9,9 +9,8 @@ import os
 
 class PySystem:
     # Monitor do sistema via terminal feito com python
-    def __init__(self):
-        self.total_memory = psutil.virtual_memory().total / (1024 ** 3)
-        self.RISK = 70  # Valor maximo ideal do uso do hardware
+    total_memory: int = psutil.virtual_memory().total / (1024 ** 3)
+    RISK: int = 70  # Valor maximo ideal do uso do hardware
 
     def wellcome(self):
         art.tprint(f"{' ' * 2} PySystem", 'tarty1')
@@ -19,14 +18,17 @@ class PySystem:
         self.monitor_resources()
 
     # Limpa o terminal, se o systema for windows com o comando 'cls', se não com o 'clear'
-    def clear_screen(self):
+    @staticmethod
+    def clear_screen():
         os.system('cls' if os.name == 'nt' else 'clear')
 
     # Obtem informações da maquina e OS
     def get_system_info(self):
-        print(f"Sistema: {platform.system()}\n"
+        print(
+            f"Sistema: {platform.system()}\n"
             f"CPU: {platform.processor()}\n" 
-            f"Memória Total: {self.total_memory:.2f}GB")
+            f"Memória Total: {self.total_memory:.2f}GB"
+        )
             
     def get_cpu_percent(self):
         percent = psutil.cpu_percent()
@@ -51,16 +53,19 @@ class PySystem:
         color = 'green' if percent < self.RISK else 'red'
 
         memory_progress = Progress()  # Cria a instancia da progress bar
-        memory_task = memory_progress.add_task(f"[{color}] Memory", total=self.total_memory)  # Cria a task da progress bar
+        # Cria a task da progress bar
+        memory_task = memory_progress.add_task(f"[{color}] Memory", total=self.total_memory)
 
         memory_progress.update(memory_task, advance=used_memory)  # Atualiza o valor da task
 
         print(memory_progress)
-        print(f"- Memória: [bold {color}]{percent}% [/bold {color}]- {used_memory:.2f}GB of {self.total_memory:.2f}GB\n")
+        print(
+            f"- Memória: [bold {color}]{percent}% [/bold {color}]- {used_memory:.2f}GB of {self.total_memory:.2f}GB\n"
+        )
     
     def get_disk_percent(self):
         percent = psutil.disk_usage('/').percent
-        color = 'green' if percent < self.RISK else 'red'
+        color: str = 'green' if percent < self.RISK else 'red'
 
         disk_progress = Progress()  # Cria a instancia da progress bar
         disk_task = disk_progress.add_task(f"[{color}] Disk", total=100)  # Cria a task da progress bar

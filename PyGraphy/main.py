@@ -12,10 +12,9 @@ class PyGraphy:
         Script para criptograr e descriptografar arquivos e pastas
         - Permite criar e salvar uma chave de criptografia em uma (~./pygraphy/)
     """
-    def __init__(self):
-        self.home = Path().home()
-        self.folder = f"{self.home}/.pygraphy/"
-        self.key = None
+    home: Path = Path().home()
+    folder: str = f"{home}/.pygraphy/"
+    key = None
 
     def wellcome(self):
         """ Tela de boas vindas """
@@ -32,17 +31,17 @@ class PyGraphy:
                 "3- Descritografar arquivo\n"
                 "4- Sair"
             )
-            option = input("\nDigite uma opção:\n")
+            option: str = input("\nDigite uma opção:\n")
 
             self.check_option(option)
         except KeyboardInterrupt:
             sys.exit()
 
-    def check_option(self, option):
+    def check_option(self, option: str):
         """ Abre a opção selecionada no menu """
         try:
-            option = int(option) - 1
-            options = [
+            option: int = int(option) - 1
+            options: list = [
                 self.create_new_key,
                 self.check_if_is_folder,
                 self.decrypt_file,
@@ -53,10 +52,40 @@ class PyGraphy:
             print("Opção invalida!\n")
             self.start_menu()
 
+    def create_new_key(self):
+        """ Cria uma nova chave de criptografia """
+        key = Fernet.generate_key()
+        keyname: str = input("Digite o nome da chave:\n")
+        path = self.check_if_app_folder_exist()
+        key_path = f"{path}/{keyname}.key"
+
+        with open(key_path, 'wb') as new_key:
+            new_key.write(key)
+
+        print(f"Nova chave {keyname}.key criada!")
+        self.start_menu()
+
+    def crypt_file(self, filename: str):
+        """ Criptografa um arquivo """
+        try:
+            with open(filename, "rb") as file:
+                file_data: bytes = file.read()
+
+            key = self.open_key()
+            encrypted_data: bytes = key.encrypt(file_data)
+
+            new_filename: str = f"{filename}.cript"
+            self.save_data_on_file(new_filename, encrypted_data)
+            self.start_menu()
+
+        except (FileExistsError, FileNotFoundError):
+            print("Arquivo não encontrado!")
+            self.check_if_is_folder()
+
     def decrypt_file(self):
         """ Decriptografa um arquivo """
         try:
-            filename = input("Digite o caminho do arquivo criptografado:\n")
+            filename: str = input("Digite o caminho do arquivo criptografado:\n")
 
             with open(filename, 'rb') as file:
                 file_data = file.read()
@@ -64,7 +93,7 @@ class PyGraphy:
             key = self.open_key()
             content = key.decrypt(file_data)
 
-            new_filename = filename.split('.cript')[0]
+            new_filename: str = filename.split('.cript')[0]
             self.save_data_on_file(new_filename, content)
             self.start_menu()
 
@@ -76,56 +105,28 @@ class PyGraphy:
             self.decrypt_file()
 
     def check_if_is_folder(self):
-        """ Verifica se o arquivo é uma pasta ou arquivo """
-        file = input("Digite o caminho para o arquivo:\n")
+        """ Verifica se o alvo é uma pasta ou arquivo """
+        file: str = input("Digite o caminho para o arquivo:\n")
 
         if Path(file).is_dir():
-            file = self.create_tar_folder(file)
+            file: str = self.create_tar_folder(file)
         self.crypt_file(file)
 
-    def crypt_file(self, filename):
-        """ Criptografa um arquivo """
-        try:
-            with open(filename, "rb") as file:
-                file_data = file.read()
-
-            key = self.open_key()
-            encrypted_data = key.encrypt(file_data)
-
-            new_filename = f"{filename}.cript"
-            self.save_data_on_file(new_filename, encrypted_data)
-            self.start_menu()
-
-        except (FileExistsError, FileNotFoundError):
-            print("Arquivo não encontrado!")
-            self.check_if_is_folder()
-
-    def create_new_key(self):
-        """ Cria uma nova chave de criptografia """
-        key = Fernet.generate_key()
-        path = self.check_if_app_folder_exist()
-        keyname = input("Digite o nome da chave:\n")
-
-        with open(f"{path}/{keyname}.key", 'wb') as new_key:
-            new_key.write(key)
-
-        self.start_menu()
-
-    def check_if_app_folder_exist(self):
+    def check_if_app_folder_exist(self) -> Path:
         """ Verifica se a pasta do script existe """
         path = Path(self.folder)
 
-        if not Path.exists(path):
+        if not path.exists():
             Path.mkdir(path)
         return path
 
     def open_key(self):
         """ Abre a chave do usuario """
-        keyname = input('Digite o nome da key:\n')
+        keyname: str = input('Digite o nome da key:\n')
         if '.key' not in keyname:  # Verifica se o usario passou a apenas o nome sem a extensão
-            keyname = keyname + '.key'
+            keyname: str = keyname + '.key'
 
-        path = f"{self.folder}{keyname}"
+        path: str = f"{self.folder}{keyname}"
         try:
             file = open(path, 'rb').read()
             key = Fernet(file)
@@ -135,9 +136,9 @@ class PyGraphy:
             self.open_key()
 
     @staticmethod
-    def create_tar_folder(filename):
+    def create_tar_folder(filename) -> str:
         """ Cria um tar.gz file da pasta para criptografar """
-        tarfile_name = f"{filename}.tar.gz"
+        tarfile_name: str = f"{filename}.tar.gz"
 
         with tarfile.open(tarfile_name, 'w:gz') as file:
             file.add(filename, arcname=os.path.basename(filename))
@@ -145,12 +146,12 @@ class PyGraphy:
         return tarfile_name
 
     @staticmethod
-    def save_data_on_file(filename, data):
+    def save_data_on_file(filename: str, data: bytes):
         with open(filename, "wb") as file:
             file.write(data)
 
 
 pygraphy = PyGraphy()
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     pygraphy.wellcome()
