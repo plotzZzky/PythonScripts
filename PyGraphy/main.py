@@ -16,7 +16,7 @@ class PyGraphy:
     folder: str = f"{home}/.pygraphy/"
     key = None
 
-    def wellcome(self):
+    def welcome(self):
         """ Tela de boas vindas """
         art.tprint(f'{" " * 9} PyGraphy', "tarty1")
         self.start_menu()
@@ -35,7 +35,7 @@ class PyGraphy:
 
             self.check_option(option)
         except KeyboardInterrupt:
-            sys.exit()
+            print("Saindo...")
 
     def check_option(self, option: str):
         """ Abre a opção selecionada no menu """
@@ -45,7 +45,7 @@ class PyGraphy:
                 self.create_new_key,
                 self.check_if_is_folder,
                 self.decrypt_file,
-                sys.exit,
+                self.exit,
             ]
             options[option]()
         except (IndexError, ValueError, TypeError):
@@ -150,8 +150,14 @@ class PyGraphy:
         with open(filename, "wb") as file:
             file.write(data)
 
+    @staticmethod
+    def exit():
+        print("Saindo...")
+        if __name__ == '__main__':
+            sys.exit()
+
 
 pygraphy = PyGraphy()
 
 if __name__ == '__main__':
-    pygraphy.wellcome()
+    pygraphy.welcome()

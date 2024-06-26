@@ -21,7 +21,7 @@ class ValidateCpf:
     }
 
     def welcome(self):
-        art.tprint(f'{" " * 2 } ValidateCpf', "tarty1")
+        art.tprint(f'{" " * 2} ValidateCpf', "tarty1")
         print(f"{'-' * 30} https://github.com/plotzzzky {'-' * 30}\n")
         self.get_cpf()
 

@@ -19,7 +19,7 @@ class PyRecorder:
     frames: list = []
     filename: str = ""
 
-    def wellcome(self):
+    def welcome(self):
         os.system('clear')
         art.tprint(f'{" " * 2} PyRecorder', "tarty1")
         print(f"{'-' * 38} https://github.com/plotzzzky {'-' * 38}\n")
@@ -31,11 +31,9 @@ class PyRecorder:
             if option == 'Y':
                 self.record_audio()
             else:
-                print(f"\nBye!")
-                sys.exit()
+                self.exit()
         except KeyboardInterrupt:
-            print(f"\nBye!")
-            sys.exit()
+            self.exit()
 
     def record_audio(self):
         """ Incia a gravação do audio """
@@ -86,8 +84,14 @@ class PyRecorder:
 
         return file_name
 
+    @staticmethod
+    def exit():
+        print("Bye!")
+        if __name__ == '__main__':
+            sys.exit()
+
 
 pyrecord = PyRecorder()
 
 if __name__ == "__main__":
-    pyrecord.wellcome()
+    pyrecord.welcome()

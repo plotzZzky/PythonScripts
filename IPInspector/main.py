@@ -12,7 +12,7 @@ class IPInspector:
 
     print_space: str = f'{"--" * 13}'  # Usado nos titulos
 
-    def wellcome(self):
+    def welcome(self):
         # Apresentação do script
         print(f"{self.print_space} [bold blue] Bem vindo ao IPInspector [/bold blue] {self.print_space}")
         print(f"{' ' * 10} Esse script busca informações de servidores por ip ou dominio.")
@@ -39,7 +39,8 @@ class IPInspector:
             self.get_domain()
         elif option == "3":
             print("Saindo...")
-            sys.exit()
+            if __name__ == '__main__':  # Se não for o main retorna ao menu inicial dos scripts
+                sys.exit()
         else:
             print("Valor incorreto!\n")
             self.menu()
@@ -84,4 +85,4 @@ class IPInspector:
 
 ip = IPInspector()
 if __name__ == "__main__":
-    ip.wellcome()
+    ip.welcome()

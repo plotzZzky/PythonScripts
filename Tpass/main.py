@@ -16,7 +16,7 @@ class App:
     menu_opt = []
     menu_act = []
 
-    def wellcome(self):
+    def welcome(self):
         # Apresentação inicial do programa
         print(f"{'-' * 104}")
         art.tprint(f'{" " * 30} TerminalPass', "tarty2")
@@ -232,4 +232,4 @@ class App:
 tpass = App()
 
 if __name__ == "__main__":
-    tpass.wellcome()
+    tpass.welcome()

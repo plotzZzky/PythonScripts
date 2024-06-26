@@ -7,7 +7,7 @@ import art
 
 class CPFMenu:
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f'{" " * 6} CpfScript', "tarty1")
         print("Os dados gerados por esse script são ficticios, usados apenas para fins acadmicos!")
         self.menu()
@@ -35,13 +35,14 @@ class CPFMenu:
             generator.check_uf()
         elif query == '3':
             print("Saindo...")
-            sys.exit()
         else:
             print("Opção não existe!\n")
-        self.menu()
+
+        if __name__ == '__main__':
+            self.menu()
 
 
 cpf = CPFMenu()
 
 if __name__ == '__main__':
-    cpf.wellcome()
+    cpf.welcome()

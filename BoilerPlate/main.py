@@ -7,12 +7,13 @@ class PyCli:
     APP_DESC: str = "Um BoilerPlate simples de cliapp feito em python"
 
     def __init__(self):
+        # O init é necessario para usar o self
         self.menu_options = [
             self.first_function,
             self.second_function,
         ]
 
-    def wellcome(self):
+    def welcome(self):
         print(f"{' ' * 35} {self.APP_NAME}")
         print(self.APP_DESC)
         self.start_menu()
@@ -46,19 +47,19 @@ class PyCli:
 
     def exit_menu(self):
         try:
-            option: str = input("\nSair?(Y/N)\n").lower()
-
-            if option == 'y':
-                sys.exit()
-            else:
-                self.start_menu()
-
+            option: str = input("\nSair?(Y/N)\n").upper()
+            self.check_exit_menu_option(option)
         except KeyboardInterrupt:
-            print("\nSaindo...")
             sys.exit()
+
+    def check_exit_menu_option(self, option: str):
+        if option == 'Y':
+            sys.exit()
+        else:
+            self.start_menu()
 
 
 app = PyCli()
 
 if __name__ == '__main__':
-    app.wellcome()
+    app.welcome()

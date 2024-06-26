@@ -21,9 +21,12 @@ class GitGet:
 
     def find_user(self):
         # Recebe o nome do usario e modifica a url com o username
-        self.user: str = input("Digite o nome do usuario:\n")
-        self.url: str = f"https://api.github.com/users/{self.user}/repos"
-        self.get_repos()
+        try:
+            self.user: str = input("Digite o nome do usuario:\n")
+            self.url: str = f"https://api.github.com/users/{self.user}/repos"
+            self.get_repos()
+        except KeyboardInterrupt:
+            print("Saindo...")
 
     def get_repos(self):
         # Recebe a lista com todos os respositorios do usuario procurado

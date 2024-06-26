@@ -8,10 +8,10 @@ class YouSave:
     """ Script para salvar videos do youtube"""
     video_name: str = ''
     streams = []
-    home = Path.home()
+    home: Path = Path.home()
     filename: str = ''
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f'{" " * 11} YouSave', "tarty1")
         print(f'{"_ " * 44}\n')
         self.get_content()
@@ -21,23 +21,23 @@ class YouSave:
             url: str = input("Digite o url do video:\n")
             self.streams = YouTube(url).streams
             self.show_options_for_download()
+
         except exceptions.RegexMatchError:  # url invalida
             print('Url invalida!\n')
             self.get_content()
+
         except KeyboardInterrupt:
             print("Saindo...")
 
     def show_options_for_download(self):
         """ Lista todas as opções para download """
         print("\nOpções para download:")
-        n = 1
 
-        for option in self.streams:
-            file_type: str = option.type
-            file: str = option.mime_type
-            res: str = f", resolution={option.resolution}" if option.resolution else ''
-            value: str = f"{n}- tipo={file_type}, formato={file}{res}"
-            n += 1
+        for index, item in enumerate(self.streams, 1):
+            file_type: str = item.type
+            file: str = item.mime_type
+            res: str = f", resolution={item.resolution}" if item.resolution else ''
+            value: str = f"{index}- tipo={file_type}, formato={file}{res}"
             print(value)
 
         self.select_option_for_download()
@@ -73,6 +73,6 @@ class YouSave:
             sys.exit()
 
 
-you_save = YouSave()
+yousave = YouSave()
 if __name__ == '__main__':
-    you_save.wellcome()
+    yousave.welcome()

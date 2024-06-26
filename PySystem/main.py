@@ -12,18 +12,18 @@ class PySystem:
     total_memory: int = psutil.virtual_memory().total / (1024 ** 3)
     RISK: int = 70  # Valor maximo ideal do uso do hardware
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f"{' ' * 2} PySystem", 'tarty1')
         print(f"{'=_' * 17} System {'_=' * 17}\n")
         self.monitor_resources()
 
-    # Limpa o terminal, se o systema for windows com o comando 'cls', se não com o 'clear'
     @staticmethod
     def clear_screen():
+        # Limpa o terminal, se o systema for windows com o comando 'cls', se não com o 'clear'
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Obtem informações da maquina e OS
     def get_system_info(self):
+        # Obtem informações da maquina e OS
         print(
             f"Sistema: {platform.system()}\n"
             f"CPU: {platform.processor()}\n" 
@@ -96,6 +96,6 @@ pysystem = PySystem()
 
 if __name__ == "__main__":
     try:
-        pysystem.wellcome()
+        pysystem.welcome()
     except KeyboardInterrupt:
         print("\nMonitoramento encerrado.")

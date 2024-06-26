@@ -35,7 +35,7 @@ class DjangoForge:
         self.react_front = ""
         self.rest = ""
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f'{" " * 5} DjangoForge', "tarty1")
         print(f"{'-' * 36} https://github.com/plotzzzky {'-' * 36}\n")
         print(
@@ -45,9 +45,12 @@ class DjangoForge:
 
     # recebe o no o nome do projeto
     def get_project_name(self):
-        self.project_name = input("Digite o nome do projeto:\n")
-        self.folder = f"{self.BASE_DIC}/{self.project_name}/"
-        self.check_if_api()
+        try:
+            self.project_name = input("Digite o nome do projeto:\n")
+            self.folder = f"{self.BASE_DIC}/{self.project_name}/"
+            self.check_if_api()
+        except KeyboardInterrupt:
+            print("Saindo...")
 
     # Verifica se deseja criar o front e o back separados
     def check_if_api(self):
@@ -144,4 +147,4 @@ class DjangoForge:
 
 forge = DjangoForge()
 if __name__ == '__main__':
-    forge.wellcome()
+    forge.welcome()

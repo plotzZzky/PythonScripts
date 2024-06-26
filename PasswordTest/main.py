@@ -20,7 +20,7 @@ class PasswordTest:
     attempts_number: int = 0
     result: str = None
 
-    def wellcome(self):
+    def welcome(self):
         # Tela de boa vinda do programa
         art.tprint(f'{" " * 23} PasswordTest', "tarty2")
         print(f"{'-' * 28} Projeto feito por um estudante python {'-' * 26}")
@@ -36,8 +36,11 @@ class PasswordTest:
             "3- Password incidence \n"
             "4- Exit"
         )
-        option: str = input("Choose a option: \n")
-        self.check_menu_option(option)
+        try:
+            option: str = input("Choose a option: \n")
+            self.check_menu_option(option)
+        except KeyboardInterrupt:
+            print("Saindo...")
 
     def check_menu_option(self, option: str):
         # Verifica qual a opção escolida pelo usuario
@@ -55,7 +58,8 @@ class PasswordTest:
                 self.test_your_pwd_frequency()
             case "4":
                 print("Saindo...")
-                sys.exit()
+                if __name__ == '__main__':
+                    sys.exit()
             case _:
                 self.start_menu()
 
@@ -190,4 +194,4 @@ class PasswordTest:
 pwd = PasswordTest()
 
 if __name__ == "__main__":
-    pwd.wellcome()
+    pwd.welcome()

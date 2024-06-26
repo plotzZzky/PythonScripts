@@ -18,17 +18,20 @@ class EmailCreator:
     data: list = []
     unique_offices: list = None
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f'{" " * 2}EmailSender', "tarty1")
         print(f"{'-' * 30} https://github.com/plotzzzky {'-' * 30}\n")
         self.open_file()
 
     def open_file(self):
         """ Abre a lista com os clientes"""
-        path_file: Path = Path(__file__).resolve().parent
-        self.df = pd.read_excel(f"{path_file}/companies.ods")
-        self.data = self.df.to_dict(orient='records')
-        self.check_if_office()
+        try:
+            path_file: Path = Path(__file__).resolve().parent
+            self.df = pd.read_excel(f"{path_file}/companies.ods")
+            self.data = self.df.to_dict(orient='records')
+            self.check_if_office()
+        except FileNotFoundError:
+            print("Tabela de clientes não encontrado!!!")
 
     def check_if_office(self):
         """ Verifica se a empresa possui contabilidade e chama a função adequada para criar o email """
@@ -152,4 +155,4 @@ email_creator = EmailCreator()
 
 if __name__ == '__main__':
     sender.config_server()
-    email_creator.wellcome()
+    email_creator.welcome()

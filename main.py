@@ -5,19 +5,20 @@ from FindCompanyInfo.main import find
 from GitGet.main import gitget
 from IPInspector.main import ip
 from PasswordTest.main import pwd
-from Tpass.main import tpass
 from PyGraphy.main import pygraphy
 from PyNance.main import pynance
+from PyRecord.main import pyrecord
 from PySystem.main import pysystem
 from SimpleRansomware.main import ransomware
 from TeamReport import main as teamreport
+from YouSave.main import yousave
 import art
 
 
-# Menu para executar um dos scripts desse projeto
 class Menu:
+    # Menu para executar um dos scripts desse projeto
     def __init__(self):
-        self.apps = [
+        self.apps: list = [
             "CpfScript",
             "DjangoForge",
             "EmailSender",
@@ -27,67 +28,70 @@ class Menu:
             "PasswordTest",
             "PyGraphy",
             "PyNance",
+            "PyRecord",
             "PySystem",
             "SimpleRansomware",
             "TeamReport",
-            "Tpass",
+            "YouSave",
         ]
-        self.print_space = f"{'-' * 36}"
 
-    # Tela de apresentação
-    def wellcome(self):
+        self.funcs: list = [
+            cpf.welcome,
+            forge.welcome,
+            email_creator.welcome,
+            find.welcome,
+            gitget.welcome,
+            ip.welcome,
+            pwd.welcome,
+            pygraphy.welcome,
+            pynance.welcome,
+            pyrecord.welcome,
+            pysystem.welcome,
+            ransomware.alert,
+            teamreport.start,
+            yousave.welcome,
+        ]
+
+        self.print_space: str = f"{'-' * 36}"
+
+    def welcome(self):
+        # Tela de apresentação
         art.tprint(f'{" " * 13} Python', "tarty1")
         art.tprint(f'{" " * 13} Scripts', "tarty1")
         self.menu()
 
-    # Menu com a lista de apps disponivel
     def menu(self):
+        # Menu com a lista de apps disponivel
         print(f"{self.print_space} Menu {self.print_space}\n")
         print("Selecione uma opção para executar o script:")
-        number = 0
-        for item in self.apps:
-            number += 1
-            print(f"{number}- {item}")
+
+        for index, item in enumerate(self.apps, 1):
+            print(f"{index}- {item}")
         self.get_option()
 
-    # Recebe a escolha do usuario e verifica se esta entre as opções disponiveis
     def get_option(self):
-        option = input("\nEscolha uma opção:\n")
+        # Recebe a escolha do usuario e verifica se esta entre as opções disponiveis
+        option: str = input("\nEscolha uma opção:\n")
         try:
-            number = int(option)
-            if number <= len(self.apps):
+            number: int = int(option)
+            if 1 <= number <= len(self.apps):
                 self.open_app(number)
             else:
                 print("Opção incorreta!")
-                self.wellcome()
+                self.welcome()
         except ValueError:
             print("Opção incorreta!\n")
-            self.wellcome()
+            self.welcome()
 
-    # Executa o script selecionado pelo usuario
     def open_app(self, option):
-        funcs = [
-            cpf.wellcome,
-            forge.wellcome,
-            email_creator.wellcome,
-            find.wellcome,
-            gitget.welcome,
-            ip.wellcome,
-            pwd.wellcome,
-            pygraphy.wellcome,
-            pynance.wellcome,
-            pysystem.wellcome,
-            ransomware.alert,
-            teamreport.start,
-            tpass.wellcome,
-        ]
+        # Executa o script selecionado pelo usuario
         try:
-            user_option = option - 1
-            funcs[user_option]()
+            self.funcs[option - 1]()
         except (KeyError, ValueError):
             pass
-        self.wellcome()
+        self.welcome()
 
 
 menu = Menu()
-menu.wellcome()
+if __name__ == '__main__':
+    menu.welcome()

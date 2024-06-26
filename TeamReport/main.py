@@ -20,9 +20,10 @@ class GenerateData:
             self.file = csv.reader(f, delimiter=";")
             f.close()
             self.get_data()
-        except (FileExistsError, FileNotFoundError):
+        except FileNotFoundError:
             print("Relatorio não encontrado!")
-            sys.exit()
+            if __name__ == '__main__':
+                sys.exit()
 
     def get_data(self):
         n = 0

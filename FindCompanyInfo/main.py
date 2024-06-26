@@ -19,19 +19,22 @@ class FindInfo:
     companies: list = []
     data: list = []
 
-    def wellcome(self):
+    def welcome(self):
         art.tprint(f'{" " * 4} FindCompanyInfo', "cybersmall")
         print(f"{'_' * 30} https://github.com/plotzzzky {'_' * 30}\n")
         self.open_file()
 
     def open_file(self):
         """ Abre a lista com todas as empresas """
-        path_file: Path = Path('FindCompanyInfo/companies.ods').absolute()
-        df = pd.read_excel(path_file)
-        dicts: list = df.to_dict(orient='records')
-        self.companies: list = [{key: company[key] for key in company} for company in dicts]
+        try:
+            path_file: Path = Path('FindCompanyInfo/companies.ods').absolute()
+            df = pd.read_excel(path_file)
+            dicts: list = df.to_dict(orient='records')
+            self.companies: list = [{key: company[key] for key in company} for company in dicts]
 
-        self.find_info()
+            self.find_info()
+        except FileNotFoundError:
+            print("Lista de cnpjs para busca não encontrados!")
 
     def find_info(self):
         """ Busca informações para cada empresa na lista de empresas """
@@ -78,4 +81,4 @@ class FindInfo:
 find = FindInfo()
 
 if __name__ == '__main__':
-    find.wellcome()
+    find.welcome()

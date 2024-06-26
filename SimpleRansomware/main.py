@@ -16,7 +16,7 @@ class SimpleRansomware:
     path = None
     key = Fernet.generate_key()
 
-    def wellcome(self):
+    def welcome(self):
         """ Menu inicial """
         art.tprint(f'{" " * 16} Simple {" " * 16}', "tarty6")
         art.tprint('Ransomware', 'tarty6')
@@ -100,4 +100,4 @@ class SimpleRansomware:
 ransomware = SimpleRansomware()
 
 if __name__ == '__main__':
-    ransomware.wellcome()
+    ransomware.welcome()
