@@ -1,4 +1,4 @@
-from creators import PythonCreator, JsCreator
+from ProjectCreator.creators import PythonCreator, JsCreator
 import sys
 
 

@@ -5,6 +5,7 @@ from FindCompanyInfo.main import find
 from GitGet.main import gitget
 from IPInspector.main import ip
 from PasswordTest.main import pwd
+from ProjectCreator.main import menu as projectcreator
 from PyGraphy.main import pygraphy
 from PyNance.main import pynance
 from PyRecord.main import pyrecord
@@ -26,6 +27,7 @@ class Menu:
             "GitGet",
             "IPInspector",
             "PasswordTest",
+            "ProjectCreator",
             "PyGraphy",
             "PyNance",
             "PyRecord",
@@ -43,6 +45,7 @@ class Menu:
             gitget.welcome,
             ip.welcome,
             pwd.welcome,
+            projectcreator.welcome,
             pygraphy.welcome,
             pynance.welcome,
             pyrecord.welcome,
