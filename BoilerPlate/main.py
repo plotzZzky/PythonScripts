@@ -7,7 +7,7 @@ class PyCli:
 
     def __init__(self):
         # O init é necessario para usar o self
-        self.menu_options = [
+        self.menu_options: list = [
             self.first_function,
             self.second_function,
         ]

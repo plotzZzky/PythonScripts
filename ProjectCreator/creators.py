@@ -37,12 +37,17 @@ class CreatorBase:
         self.create_project_folder()
         self.create_readme()
 
+    def create_main_file(self, filename: str, content: str):
+        file_path: str = f"{self.project_name}/{filename}"
+        with open(file_path, 'w') as file:
+            file.write(content)
+
 
 class PythonCreator(CreatorBase):
     """ Classe para criar a estrutura do projeto python"""
     def create_python_project(self):
         self.create_generic_contents()
-        self.create_main_python_file()
+        self.create_main_file("main.py", "# New main file")
         self.create_python_requirements()
         self.create_venv()
 
@@ -62,24 +67,14 @@ class PythonCreator(CreatorBase):
 
         os.system(f"cd {self.project_name}; python -m venv venv; {cmd}; pip install -r requirements.txt")
 
-    def create_main_python_file(self):
-        file_path: str = f"{self.project_name}/xx.py"
-        with open(file_path, 'w') as file:
-            file.write("# new project")
-
 
 class JsCreator(CreatorBase):
     """ Classe para criar a estrutura do projeto js """
     def create_js_project(self):
         self.create_generic_contents()
-        self.create_main_js_file()
+        self.create_main_file("main.js", "// New main file")
         self.create_npm_folder()
         self.install_js_requirements()
-
-    def create_main_js_file(self):
-        file_path: str = f"{self.project_name}/main.js"
-        with open(file_path, 'w') as file:
-            file.write("// new project")
 
     def create_npm_folder(self):
         os.system(f"cd {self.project_name}; npm init")
