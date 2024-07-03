@@ -3,7 +3,6 @@ import sys
 
 class PyCli:
     """ Modelo de BoilerPlate de appcli feito em python """
-    APP_NAME: str = 'PyCli'
     APP_DESC: str = "Um BoilerPlate simples de cliapp feito em python"
 
     def __init__(self):
@@ -14,7 +13,7 @@ class PyCli:
         ]
 
     def welcome(self):
-        print(f"{' ' * 35} {self.APP_NAME}")
+        print(f"{' ' * 35} {self.__class__.__name__}")
         print(self.APP_DESC)
         self.start_menu()
 
