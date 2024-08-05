@@ -12,10 +12,10 @@ class PyArchInstall:
     official_packages: list = [
         "libreoffice-still",
         "code",
-        "pycharm-community-edit",
+        "pycharm-community-edition",
         "telegram-desktop",
         "krita",
-        "keepassxc"
+        "keepassxc",
         "xfce4-goodies",
         "elementary-wallpapers",
     ]
@@ -53,7 +53,7 @@ class PyArchInstall:
     def install_package(package: str, installer: str):
         try:
             command: list = [installer, "-Sy", package]
-            subprocess.run(command,  input="S\n", text=True, check=True)
+            subprocess.run(command,  input="\n", text=True, check=True)
 
         except subprocess.CalledProcessError:
             print(f"Não foi possivel instalar o pacote {package}!")

