@@ -1,7 +1,7 @@
 # Esse script gera um conjunto de graficos, para demostrar o desempenho de uma equipe ao executar um conjunto de tarefas
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
-from datetime import date
+from datetime import datetime
 from pathlib import Path
 import sys
 import csv
@@ -19,13 +19,14 @@ class GenerateData:
             f = open(f"{self.path}/relatorio.csv")
             self.file = csv.reader(f, delimiter=";")
             f.close()
-            self.get_data()
+            self.get_data_from_table()
+
         except FileNotFoundError:
             print("Relatorio não encontrado!")
             if __name__ == '__main__':
                 sys.exit()
 
-    def get_data(self):
+    def get_data_from_table(self):
         n = 0
         for row in self.file:
             if n != 0:
@@ -59,8 +60,7 @@ class GenerateData:
 class GraphPie:
     # Classe que gera os graficos pizza medindo a performance da equipe
     def __init__(self, data):
-        strdate = str(date.today()).split("-")
-        today = f"{strdate[2]}/{strdate[1]}/{strdate[0]}"
+        today = datetime.today().strftime("%d/%m/%Y")
 
         state = "Etapa do projeto"
         self.title = f'Desempenho da equipe na fase "{state}", no dia {today}'
@@ -94,16 +94,16 @@ class GraphPie:
             color = "blue" if item["meta"] > self.META else "red"
             name = item["name"].capitalize()  # Nome do colaborador
 
-            self.generic_pie(item["values"], color, name, row, col)
+            self.create_generic_pie(item["values"], color, name, row, col)
 
             col += 1
             if col == 5:
                 row = 2
                 col = 1
 
-        self.add_title()
+        self.add_page_title()
 
-    def generic_pie(self, values, color, name, row, col):
+    def create_generic_pie(self, values, color, name, row, col):
         self.fig.add_trace(
             go.Pie(
                 name="",
@@ -117,7 +117,7 @@ class GraphPie:
             col=col,
         )
 
-    def add_title(self):
+    def add_page_title(self):
         # Atualiza o layout para adicionar títulos
         self.fig.update_layout(
             title=self.title,
@@ -140,10 +140,6 @@ generate_data = GenerateData()
 pie = GraphPie(generate_data)
 
 
-def start():
+if __name__ == "__main__":
     generate_data.open_file()
     pie.create_subplot()
-
-
-if __name__ == "__main__":
-    start()

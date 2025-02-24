@@ -52,7 +52,7 @@ class PyArchInstall:
     @staticmethod
     def install_package(package: str, installer: str):
         try:
-            command: list = [installer, "-Sy", package]
+            command: list = [installer, "-Sy", "--noconfirm", package]
             subprocess.run(command,  input="\n", text=True, check=True)
 
         except subprocess.CalledProcessError:

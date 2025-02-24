@@ -38,11 +38,13 @@ class PyCli:
 
     def first_function(self):
         print("Function1")
-        self.exit_menu()
+        if __name__ == '__main__': # Se for o main, mostra o exit_menu, se não, ignora
+            self.exit_menu()
 
     def second_function(self):
         print("Function2")
-        self.exit_menu()
+        if __name__ == '__main__': # Se for o main, mostra o exit_menu, se não, ignora
+            self.exit_menu()
 
     def exit_menu(self):
         try:
@@ -58,7 +60,7 @@ class PyCli:
             self.start_menu()
 
 
-app = PyCli()
+pycli = PyCli()
 
 if __name__ == '__main__':
-    app.welcome()
+    pycli.welcome()
