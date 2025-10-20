@@ -38,21 +38,21 @@ class Menu:
         ]
 
         self.funcs: list = [
-            cpf.welcome,
-            forge.welcome,
-            email_creator.welcome,
-            find.welcome,
-            gitget.welcome,
-            ip.welcome,
-            pwd.welcome,
-            projectcreator.welcome,
-            pygraphy.welcome,
-            pynance.welcome,
-            pyrecord.welcome,
-            pysystem.welcome,
+            cpf.wellcome_msg,
+            forge.wellcome_msg,
+            email_creator.wellcome_msg,
+            find.wellcome_msg,
+            gitget.wellcome_msg,
+            ip.wellcome_msg,
+            pwd.wellcome_msg,
+            projectcreator.wellcome_msg,
+            pygraphy.wellcome_msg,
+            pynance.wellcome_msg,
+            pyrecord.wellcome_msg,
+            pysystem.wellcome_msg,
             ransomware.alert,
             teamreport.start,
-            yousave.welcome,
+            yousave.wellcome_msg,
         ]
 
         self.print_space: str = f"{'-' * 36}"

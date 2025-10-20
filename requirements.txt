@@ -10,3 +10,4 @@ psutil
 cryptography
 pytube
 pyaudio
+urllib3

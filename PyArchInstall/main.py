@@ -5,17 +5,17 @@ import subprocess
 class PyArchInstall:
     """
         Script para automatizar a instalação de pacotes no archlinux
-        Esse script precisa ser executado como sudo!!! sudo ./main.py
+        Esse script precisa ser executado como sudo!!! sudo ./boilerplate.py
     """
     APP_DESC: str = "Script para automatizar a instalação de pacotes no archlinux"
 
     official_packages: list = [
         "libreoffice-still",
         "code",
-        "pycharm-community-edition",
+        "pycharm-community-edit",
         "telegram-desktop",
         "krita",
-        "keepassxc",
+        "keepassxc"
         "xfce4-goodies",
         "elementary-wallpapers",
     ]
@@ -52,8 +52,8 @@ class PyArchInstall:
     @staticmethod
     def install_package(package: str, installer: str):
         try:
-            command: list = [installer, "-Sy", "--noconfirm", package]
-            subprocess.run(command,  input="\n", text=True, check=True)
+            command: list = [installer, "-Sy", package]
+            subprocess.run(command,  input="S\n", text=True, check=True)
 
         except subprocess.CalledProcessError:
             print(f"Não foi possivel instalar o pacote {package}!")

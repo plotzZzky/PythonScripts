@@ -14,53 +14,43 @@ class YouSave:
     def welcome(self):
         art.tprint(f'{" " * 11} YouSave', "tarty1")
         print(f'{"_ " * 44}\n')
-        self.get_data_from_url()
+        self.get_content()
 
-    def get_data_from_url(self):
+    def get_content(self):
         try:
             url: str = input("Digite o url do video:\n")
             self.streams = YouTube(url).streams
-            print(self.streams)
-            self.show_all_download_options()
+            self.show_options_for_download()
 
         except exceptions.RegexMatchError:  # url invalida
             print('Url invalida!\n')
-            self.get_data_from_url()
+            self.get_content()
 
         except KeyboardInterrupt:
             print("Saindo...")
 
-    def show_all_download_options(self):
+    def show_options_for_download(self):
         """ Lista todas as opções para download """
         print("\nOpções para download:")
+
         for index, item in enumerate(self.streams, 1):
-            self.show_formated_download_option(index, item)
+            file_type: str = item.type
+            file: str = item.mime_type
+            res: str = f", resolution={item.resolution}" if item.resolution else ''
+            value: str = f"{index}- tipo={file_type}, formato={file}{res}"
+            print(value)
 
-        self.check_selected_download_option()
-        
-    @staticmethod
-    def show_formated_download_option(index, item):
-        file_type: str = item.type
-        file: str = item.mime_type
-        res: str = f", resolution={item.resolution}" if item.resolution else ''
-        value: str = f"{index}- tipo={file_type}, formato={file}{res}"
-        print(value)
+        self.select_option_for_download()
 
-    def check_selected_download_option(self):
+    def select_option_for_download(self):
         try:
             option: str = input("\nSelecione a opção:\n").lower()
-            formated_option: int = int(option) - 1
-            stream = self.streams[formated_option]
-            self.download_stream(stream)
-
+            folder: str = self.check_folder()
+            self.streams[int(option) - 1].download(output_path=folder)  # faz o download do arquivo selecionado
+            self.show_result()
         except (IndexError, ValueError):
             print("Opção invalida!\n")
-            self.show_all_download_options()
-        
-    def download_stream(self, stream):
-        folder: str = self.check_folder()
-        stream.download(output_path=folder)  # faz o download do arquivo selecionado
-        self.show_result_message()
+            self.show_options_for_download()
 
     def check_folder(self) -> str:
         """ Verifica se a pasta existe """
@@ -68,16 +58,17 @@ class YouSave:
 
         if not Path(folder).exists():
             Path(folder).mkdir()
+
         return folder
 
-    def show_result_message(self):
+    def show_result(self):
         print(f"Video {self.video_name} salva com sucesso!")
         self.exit_menu()
 
     def exit_menu(self):
         option: str = input("Baixar mais videos?(Y/N)\n").lower()
         if option == 'y':
-            self.get_data_from_url()
+            self.get_content()
         else:
             sys.exit()
 

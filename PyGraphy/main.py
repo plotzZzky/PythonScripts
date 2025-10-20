@@ -16,14 +16,6 @@ class PyGraphy:
     folder: str = f"{home}/.pygraphy/"
     key = None
 
-    def __init__(self):
-        self.operations_list: list = [
-            self.create_new_key,
-            self.check_if_is_folder,
-            self.decrypt_file,
-            self.exit,
-        ]
-
     def welcome(self):
         """ Tela de boas vindas """
         art.tprint(f'{" " * 9} PyGraphy', "tarty1")
@@ -49,8 +41,13 @@ class PyGraphy:
         """ Abre a opção selecionada no menu """
         try:
             option: int = int(option) - 1
-            self.operations_list[option]()
-
+            options: list = [
+                self.create_new_key,
+                self.check_if_is_folder,
+                self.decrypt_file,
+                self.exit,
+            ]
+            options[option]()
         except (IndexError, ValueError, TypeError):
             print("Opção invalida!\n")
             self.start_menu()
@@ -79,8 +76,6 @@ class PyGraphy:
 
             new_filename: str = f"{filename}.cript"
             self.save_data_on_file(new_filename, encrypted_data)
-
-            print("Arquivo criptografado!")
             self.start_menu()
 
         except (FileExistsError, FileNotFoundError):
@@ -100,8 +95,6 @@ class PyGraphy:
 
             new_filename: str = filename.split('.cript')[0]
             self.save_data_on_file(new_filename, content)
-
-            print("Arquivo descriptografado!")
             self.start_menu()
 
         except (FileExistsError, FileNotFoundError):
@@ -129,33 +122,18 @@ class PyGraphy:
 
     def open_key(self):
         """ Abre a chave do usuario """
-        key_path: Path = self.check_if_key_exists()
-
-        try:
-            file = open(key_path, 'rb').read()
-            key = Fernet(file)
-            return key
-
-        except (FileExistsError, FileNotFoundError):
-            print(f"Key não encontrada\n")
-            self.open_key()
-
-    def receive_key_name(self) -> str:
         keyname: str = input('Digite o nome da key:\n')
         if '.key' not in keyname:  # Verifica se o usario passou a apenas o nome sem a extensão
             keyname: str = keyname + '.key'
-        key: str = f"{self.folder}{keyname}"
-        return key
 
-    def check_if_key_exists(self) -> Path:
-        key: str = self.receive_key_name()
-        key_path: Path = Path(key)
-
-        if key_path.exists():
-            return key_path
-        else:
-            print("Key não encontrada!")
-            self.check_if_key_exists()
+        path: str = f"{self.folder}{keyname}"
+        try:
+            file = open(path, 'rb').read()
+            key = Fernet(file)
+            return key
+        except (FileExistsError, FileNotFoundError):
+            print(f"Key não encontrada\n")
+            self.open_key()
 
     @staticmethod
     def create_tar_folder(filename) -> str:
