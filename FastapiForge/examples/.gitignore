@@ -1,0 +1,7 @@
+*_initial.py
+*00*.py
+
+*/__pycache__/*
+*/migrations/__pycache__/*
+.idea/
+/venv/

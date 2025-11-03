@@ -6,6 +6,7 @@
 ##### CPFScript - Appcli para validar matematicamente CPFs e gera ficticios.
 ##### DjangoForge - Appcli para facilitar a criação de projetos com Django.
 ##### EmailSender - Ferramenta para enviar e-mails de forma automatizada.
+##### FastapiForge - Ferramentapara criar projetos com fastapi
 ##### FindCompanyInfo - Appcli para buscar dados de empresas no cadastro da receita.
 ##### GenerateTasksLists - Distri uma lista de tarefas entre entegrantes de uma equipe*
 ##### GitGet - Appcli para baixar projetos do github.
