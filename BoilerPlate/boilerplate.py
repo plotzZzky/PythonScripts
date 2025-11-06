@@ -14,6 +14,8 @@ class CliBoilerplate:
     CLI_DESC: str = "Um BoilerPlate simples de cliapp feito em python\n" # descrição do cliapp
     CLI_NAME_SPACE: int = 8 # Espaso antes do nome na mensagem de boas vindas
 
+    SLEEP_TIME: float = 2
+
     def __init__(self):
         # O init é necessario para usar o self
         self.CLI_NAME: str = self.__class__.__name__
@@ -109,8 +111,8 @@ class CliBoilerplate:
 
     def generic_menu_msg(self, msg: str):
         """ Mensagem basica de apresentaçao para os menus """
-        widht: int = self.receive_terminal_width(msg)
-        print(f"\n {'_' * widht} {msg} {'_' * widht} ")
+        width: int = self.receive_terminal_width(msg)
+        print(f"\n {'_' * width} {msg} {'_' * width} ")
 
     @staticmethod
     def example_function():
@@ -125,7 +127,7 @@ class CliBoilerplate:
         """
         try:
             print("\nBye...")
-            sleep(2)
+            sleep(self.SLEEP_TIME)
             
         except KeyboardInterrupt:
             pass
