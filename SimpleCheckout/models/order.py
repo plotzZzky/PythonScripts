@@ -144,6 +144,7 @@ class Order:
 
     @staticmethod
     def show_change_amount(change):
+        """ Exibe o valor do troco """
         print(f"\nO troco é R$ {change:.2f}")
 
     @staticmethod

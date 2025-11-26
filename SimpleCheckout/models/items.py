@@ -1,17 +1,19 @@
+
 class Item:
     """ Classe dos item do estoque """
-    def __init__(self, item_id: int, item_name: str, price: float):
-        self.id: int = item_id
-        self.name: str = item_name
+    def __init__(self, item_id: int, name: str, price: float):
+        self.item_id: int = item_id
+        self.name: str = name
         self.price: float = price
 
 
 all_items: list = [
-    Item(1, "Arroz", 4.00),
-    Item(2, "Macarrão", 3.50),
-    Item(3, "Azeite", 5.00),
+    Item(1,"Arroz", 4.00),
+    Item(2,"Azeite", 5.00),
+    Item(3, "Batata", 3.00),
     Item(4, "Frango", 15.00),
-    Item(5, "Feijão", 5.00),
+    Item(5,"Feijão", 5.00),
+    Item(6, "Macarrão", 3.50),
 ]
 
 
