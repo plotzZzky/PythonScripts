@@ -11,3 +11,4 @@ cryptography
 pytube
 pyaudio
 urllib3
+bs4
